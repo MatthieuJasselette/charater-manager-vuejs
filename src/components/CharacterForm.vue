@@ -1,5 +1,5 @@
 <template>
   <div class="about">
-    <h1>This is a character form</h1>
+    <h3>This is a character form</h3>
   </div>
 </template>

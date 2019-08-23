@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <h1>
+    <h3>
       This is the page that will list the characters through the CharacterCard
       component
-    </h1>
+    </h3>
     <CharacterCard />
   </div>
 </template>

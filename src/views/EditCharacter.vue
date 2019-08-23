@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This edits character #{{ id }} through the CharacterForm component</h1>
+    <h3>This edits character #{{ id }} through the CharacterForm component</h3>
     <CharacterForm />
   </div>
 </template>

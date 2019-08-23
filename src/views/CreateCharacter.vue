@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This creates a new character through the CharacterForm component</h1>
+    <h3>This creates a new character through the CharacterForm component</h3>
     <CharacterForm />
   </div>
 </template>

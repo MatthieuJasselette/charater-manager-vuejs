@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is the page that will display user #{{ id }} datas</h1>
+    <h3>This is the page that will display user #{{ id }} datas</h3>
     <router-link :to="{ name: 'createcharacter' }"
       >Character creation</router-link
     >

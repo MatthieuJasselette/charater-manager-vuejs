@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>Thi is the page that will log or register the Users</h1>
+    <h3>Thi is the page that will log or register the Users</h3>
     <UserForm />
   </div>
 </template>
