@@ -12,6 +12,10 @@ export default {
   components: {
     CharacterForm
   },
-  props: ['id']
+  props: {
+    id: {
+      type: Number
+    }
+  }
 }
 </script>

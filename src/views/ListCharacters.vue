@@ -4,8 +4,16 @@
       This is the page that will list the characters through the CharacterCard
       component
     </h1>
-    <router-link :to="{ name: 'displaycharacter', params: { id: '1' } }"
-      >Character details</router-link
-    >
+    <CharacterCard />
   </div>
 </template>
+
+<script>
+import CharacterCard from '@/components/CharacterCard.vue'
+
+export default {
+  components: {
+    CharacterCard
+  }
+}
+</script>

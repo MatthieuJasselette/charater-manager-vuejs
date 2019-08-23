@@ -12,6 +12,10 @@ export default {
   components: {
     UserForm
   },
-  props: ['id']
+  props: {
+    id: {
+      type: Number
+    }
+  }
 }
 </script>
