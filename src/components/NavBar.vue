@@ -1,23 +1,37 @@
 <template>
-  <div id="nav">
-    <router-link :to="{ name: 'home' }">Home</router-link>|
-    <router-link :to="{ name: 'characters' }">Characters</router-link>|
-    <router-link :to="{ name: 'users' }">Users</router-link>||
-    <router-link :to="{ name: 'session' }">Session</router-link>|
+  <div id="nav" class="nav">
+    <router-link class="brand" :to="{ name: 'home' }">Home</router-link>
+    <nav>
+      <router-link :to="{ name: 'characters' }">Characters</router-link>
+      <span>|</span>
+      <router-link :to="{ name: 'users' }">Users</router-link>
+    </nav>
+    <router-link :to="{ name: 'session' }">Session</router-link>
   </div>
 </template>
 
 <style scoped>
-#nav {
-  padding: 30px;
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.nav > .brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.5em;
+  color: #39b982;
+  text-decoration: none;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.nav .nav-item {
+  box-sizing: border-box;
+  margin: 0 5px;
+  color: rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+}
+.nav .nav-item.router-link-exact-active {
+  color: #39b982;
+  border-bottom: solid 2px #39b982;
 }
 </style>
