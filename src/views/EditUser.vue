@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This edits an existing user through the UserForm component</h1>
+    <h1>This edits user #{{ id }} through the UserForm component</h1>
     <UserForm />
   </div>
 </template>
@@ -11,6 +11,7 @@ import UserForm from '@/components/CharacterForm.vue'
 export default {
   components: {
     UserForm
-  }
+  },
+  props: ['id']
 }
 </script>
