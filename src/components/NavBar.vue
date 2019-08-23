@@ -1,9 +1,9 @@
 <template>
   <div id="nav">
-    <router-link to="/">Home</router-link>|
-    <router-link to="/characters">Characters</router-link>|
-    <router-link to="/users">Users</router-link>||
-    <router-link to="/session">Session</router-link>|
+    <router-link :to="{ name: 'home' }">Home</router-link>|
+    <router-link :to="{ name: 'characters' }">Characters</router-link>|
+    <router-link :to="{ name: 'users' }">Users</router-link>||
+    <router-link :to="{ name: 'session' }">Session</router-link>|
   </div>
 </template>
 
