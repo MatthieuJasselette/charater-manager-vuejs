@@ -37,29 +37,33 @@ export default new Router({
       component: Session
     },
     {
-      path: '/displaycharacter',
+      path: '/character/:id',
       name: 'displaycharacter',
-      component: DisplayCharacter
+      component: DisplayCharacter,
+      props: true
     },
     {
-      path: '/displayuser',
+      path: '/user/:id',
       name: 'displayuser',
-      component: DisplayUser
+      component: DisplayUser,
+      props: true
     },
     {
-      path: '/createcharacter',
+      path: '/character/create',
       name: 'createcharacter',
       component: CreateCharacter
     },
     {
-      path: '/editcharacter',
+      path: '/character/:id/edit',
       name: 'editcharacter',
-      component: EditCharacter
+      component: EditCharacter,
+      props: true
     },
     {
-      path: '/edituser',
+      path: '/user/:id/edit',
       name: 'edituser',
-      component: EditUser
+      component: EditUser,
+      props: true
     }
   ]
 })
