@@ -4,30 +4,33 @@
       This is the home page that will display the current raid composition
       through the CharacterCard component.
     </h3>
-    <CharacterCard />
+    <CharacterCard
+      v-for="character of characters"
+      :key="character.id"
+      :character="character"
+    />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CharacterCard from '@/components/CharacterCard.vue'
-import axios from 'axios'
+import ApiService from '@/services/ApiService.js'
 
 export default {
   name: 'home',
+  data() {
+    return {
+      characters: {}
+    }
+  },
   components: {
     CharacterCard
   },
-  props: {
-    id: {
-      type: Number
-    }
-  },
   created() {
-    axios
-      .get('http://localhost:8000/api/v1/raid')
+    ApiService.getRaid()
       .then(response => {
-        console.log(response.data)
+        this.characters = response.data.data
       })
       .catch(error => {
         console.log('There was an error:', error.response)
