@@ -1,5 +1,79 @@
 <template>
   <div class="about">
-    <h3>This is a user form</h3>
+    <form>
+      <h3>Fill in the following form</h3>
+      <div class="field">
+        <label>Title</label>
+        <input
+          v-model="user.title"
+          type="text"
+          placeholder="Add an user name"
+        />
+      </div>
+      <div class="field">
+        <label>email</label>
+        <input
+          v-model="user.description"
+          type="text"
+          placeholder="Add an email"
+        />
+      </div>
+      <div class="field">
+        <label>password</label>
+        <input
+          v-model="user.password"
+          type="text"
+          placeholder="Add a password"
+        />
+      </div>
+      <div class="field">
+        <label>is_available</label>
+        <input
+          v-model="user.is_available"
+          type="text"
+          placeholder="Define your availability"
+        />
+      </div>
+      <input type="submit" class="button -fill-gradient" value="Submit" />
+    </form>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      user: this.createFreshUser()
+    }
+  },
+  methods: {
+    createFreshUser() {
+      return {
+        name: '',
+        email: '',
+        password: '',
+        is_available: ''
+      }
+    },
+    createUser() {
+      this.$store
+        .dispatch('createUser', this.user)
+        .then(() => {
+          this.$router.push({
+            name: 'user',
+            params: { id: this.user.id }
+          })
+          this.user = this.createFreshUser()
+        })
+        .catch(() => {
+          console.log('There was a problem creating your user.')
+        })
+    }
+  }
+}
+</script>
+
+<style scoped>
+.field {
+  margin-bottom: 24px;
+}
+</style>

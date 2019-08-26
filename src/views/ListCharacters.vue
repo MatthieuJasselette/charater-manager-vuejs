@@ -14,26 +14,15 @@
 
 <script>
 import CharacterCard from '@/components/CharacterCard.vue'
-import ApiService from '@/services/ApiService.js'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     CharacterCard
   },
-  data() {
-    return {
-      characters: {}
-    }
-  },
   created() {
-    ApiService.getCharacters()
-      .then(response => {
-        this.characters = response.data.data
-        console.log(response)
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  }
+    this.$store.dispatch('fetchCharacters')
+  },
+  computed: mapState(['characters'])
 }
 </script>

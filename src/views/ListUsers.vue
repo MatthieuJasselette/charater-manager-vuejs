@@ -9,25 +9,15 @@
 
 <script>
 import UserCard from '@/components/UserCard.vue'
-import ApiService from '@/services/ApiService.js'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     UserCard
   },
-  data() {
-    return {
-      users: {}
-    }
-  },
   created() {
-    ApiService.getUsers()
-      .then(response => {
-        this.users = response.data.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  }
+    this.$store.dispatch('fetchUsers')
+  },
+  computed: mapState(['users'])
 }
 </script>

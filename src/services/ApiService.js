@@ -14,6 +14,7 @@ export default {
     return apiClient.get('/raid')
   },
 
+  // User routes
   getUsers() {
     return apiClient.get('/user')
   },
@@ -22,6 +23,11 @@ export default {
     return apiClient.get('/user/' + id)
   },
 
+  postUser(user) {
+    return apiClient.post('/user', user)
+  },
+
+  // Character routes
   getCharacters() {
     return apiClient.get('/character')
   },

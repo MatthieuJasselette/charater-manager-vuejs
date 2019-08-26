@@ -5,7 +5,7 @@
       through the CharacterCard component.
     </h3>
     <CharacterCard
-      v-for="character of characters"
+      v-for="character of raid"
       :key="character.id"
       :character="character"
     />
@@ -15,26 +15,16 @@
 <script>
 // @ is an alias to /src
 import CharacterCard from '@/components/CharacterCard.vue'
-import ApiService from '@/services/ApiService.js'
+import { mapState } from 'vuex'
 
 export default {
   name: 'home',
-  data() {
-    return {
-      characters: {}
-    }
-  },
   components: {
     CharacterCard
   },
   created() {
-    ApiService.getRaid()
-      .then(response => {
-        this.characters = response.data.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  }
+    this.$store.dispatch('fetchRaid')
+  },
+  computed: mapState(['raid'])
 }
 </script>
