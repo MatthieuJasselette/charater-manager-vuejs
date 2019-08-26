@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <form>
+    <form @submit.prevent="registerUser">
       <h3>Fill in the following form</h3>
       <div class="field">
         <label>Name</label>
@@ -14,7 +14,7 @@
         <label>password</label>
         <input
           v-model="user.password"
-          type="text"
+          type="password"
           placeholder="Add a password"
         />
       </div>
@@ -46,10 +46,10 @@ export default {
         is_available: ''
       }
     },
-    createUser() {
-      this.$store.dispatch('createUser', this.user).then(() => {
+    registerUser() {
+      this.$store.dispatch('registerUser', this.user).then(() => {
         this.$router.push({
-          name: 'user'
+          name: 'users'
         })
         this.user = this.createFreshUser()
       })

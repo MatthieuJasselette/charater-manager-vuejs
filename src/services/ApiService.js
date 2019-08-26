@@ -24,7 +24,7 @@ export default {
   },
 
   postUser(user) {
-    return apiClient.post('/user', user)
+    return apiClient.post('/register', user)
   },
 
   // Character routes

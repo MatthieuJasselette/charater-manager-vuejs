@@ -59,7 +59,7 @@ export const actions = {
     }
   },
 
-  createEvent({ commit, dispatch }, user) {
+  registerUser({ commit, dispatch }, user) {
     return ApiService.postUser(user).then(() => {
       commit('ADD_USER', user)
       const notification = {
