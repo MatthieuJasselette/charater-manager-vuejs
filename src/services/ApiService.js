@@ -23,8 +23,12 @@ export default {
     return apiClient.get('/user/' + id)
   },
 
-  postUser(user) {
+  registerUser(user) {
     return apiClient.post('/register', user)
+  },
+
+  logUserIn(user) {
+    return apiClient.post('/login', user)
   },
 
   // Character routes

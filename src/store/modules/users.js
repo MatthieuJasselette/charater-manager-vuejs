@@ -2,7 +2,8 @@ import ApiService from '@/services/ApiService.js'
 
 export const state = {
   users: [],
-  user: {}
+  user: {},
+  session: {}
 }
 
 export const getters = {
@@ -22,6 +23,10 @@ export const mutations = {
 
   ADD_USER(state, user) {
     state.users.push(user)
+  },
+
+  ADD_SESSION(state, token) {
+    state.session = token
   }
 }
 
@@ -60,7 +65,7 @@ export const actions = {
   },
 
   registerUser({ commit, dispatch }, user) {
-    return ApiService.postUser(user).then(() => {
+    return ApiService.registerUser(user).then(() => {
       commit('ADD_USER', user)
       const notification = {
         type: 'success',
@@ -72,6 +77,29 @@ export const actions = {
         const notification = {
           type: 'error',
           message: 'There was a problem creating your event: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+        throw error
+      })
+    })
+  },
+
+  logUserIn({ commit, dispatch }, user) {
+    return ApiService.logUserIn(user).then(response => {
+      console.log(response)
+      commit('ADD_SESSION', response.data.access_token)
+      const notification = {
+        type: 'success',
+        message: 'Your have been logged in!'
+      }
+      dispatch('notification/add', notification, {
+        root: true
+      }).catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem logged you in: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true

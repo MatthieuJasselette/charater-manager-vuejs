@@ -1,20 +1,16 @@
 <template>
   <div class="about">
-    <form>
+    <form @submit.prevent="createSession">
       <h3>Login</h3>
       <div class="field">
         <label>email</label>
-        <input
-          v-model="user.description"
-          type="text"
-          placeholder="Add an email"
-        />
+        <input v-model="user.email" type="text" placeholder="Add an email" />
       </div>
       <div class="field">
         <label>password</label>
         <input
           v-model="user.password"
-          type="text"
+          type="password"
           placeholder="Add a password"
         />
       </div>
@@ -34,6 +30,15 @@ export default {
   data() {
     return {
       user: {}
+    }
+  },
+  methods: {
+    createSession() {
+      this.$store.dispatch('logUserIn', this.user).then(() => {
+        this.$router.push({
+          name: '/'
+        })
+      })
     }
   }
 }
