@@ -1,20 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import ApiService from '@/services/ApiService.js'
+import * as users from '@/store/modules/users.js'
+// import * as character from '@/store/modules/character.js'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    users
+    // character
+  },
   state: {},
   mutations: {
-    ADD_USER(state, user) {
-      state.users.push(user)
-    },
-
-    SET_USERS(state, users) {
-      state.users = users
-    },
-
     SET_CHARACTERS(state, characters) {
       state.characters = characters
     },
@@ -24,19 +22,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createUser({ commit }, user) {
-      ApiService.postUser(user)
-      commit('ADD_USER', user)
-    },
-
-    fetchUsers({ commit }) {
-      ApiService.getUsers()
-        .then(response => commit('SET_USERS', response.data.data))
-        .catch(error => {
-          console.log('There was an error:', error.response)
-        })
-    },
-
     fetchCharacters({ commit }) {
       ApiService.getCharacters()
         .then(response => commit('SET_CHARACTERS', response.data.data))
@@ -52,5 +37,6 @@ export default new Vuex.Store({
           console.log('There was an error:', error.response)
         })
     }
-  }
+  },
+  getters: {}
 })

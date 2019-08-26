@@ -1,5 +1,6 @@
 <template>
   <router-link
+    v-if="user"
     class="event-link"
     :to="{ name: 'displayuser', params: { id: user.id } }"
   >

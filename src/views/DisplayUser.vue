@@ -1,10 +1,12 @@
 <template>
   <div class="about">
-    <h3>This is the page that will display {{ user.name }}'s datas</h3>
+    <h3>{{ user.name }}</h3>
+    <p v-if="user.is_available">This user is available</p>
+    <p v-else>This user is currently unavailable</p>
     <router-link :to="{ name: 'createcharacter' }"
       >Character creation</router-link
     >
-    <router-link :to="{ name: 'edituser', params: { id: '1' } }"
+    <router-link :to="{ name: 'edituser', params: { id: user.id } }"
       >User edition</router-link
     >
     <CharacterCard
@@ -16,31 +18,22 @@
 </template>
 
 <script>
-import ApiService from '@/services/ApiService.js'
 import CharacterCard from '@/components/CharacterCard.vue'
+import { mapState } from 'vuex'
 
 export default {
-  props: {
-    id: {
-      type: Number
-    }
-  },
+  // props: {
+  //   id: {
+  //     type: Number
+  //   }
+  // },
+  props: ['id'],
   components: {
     CharacterCard
   },
-  data() {
-    return {
-      user: {}
-    }
-  },
   created() {
-    ApiService.getUser(this.id)
-      .then(response => {
-        this.user = response.data.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  }
+    this.$store.dispatch('fetchUser', this.id)
+  },
+  computed: mapState(['user'])
 }
 </script>
