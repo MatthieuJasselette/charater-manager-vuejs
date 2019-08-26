@@ -26,15 +26,21 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchUsers({ commit }) {
+  fetchUsers({ commit, dispatch }) {
     ApiService.getUsers()
       .then(response => commit('SET_USERS', response.data.data))
       .catch(error => {
-        console.log('There was an error:', error.response)
+        const notification = {
+          type: 'error',
+          message: 'There was a problem fetching events: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
       })
   },
 
-  fetchUser({ commit, getters }, id) {
+  fetchUser({ commit, getters, dispatch }, id) {
     let user = getters.getUserById(id)
     if (user) {
       commit('SET_USER', user)
@@ -42,13 +48,36 @@ export const actions = {
       ApiService.getUser(id)
         .then(response => commit('SET_USER', response.data.data))
         .catch(error => {
-          console.log('There was an error:', error.response)
+          const notification = {
+            type: 'error',
+            message: 'There was a problem fetching events: ' + error.message
+          }
+          dispatch('notification/add', notification, {
+            root: true
+          })
         })
     }
   },
 
-  createUser({ commit }, user) {
-    ApiService.postUser(user)
-    commit('ADD_USER', user)
+  createEvent({ commit, dispatch }, user) {
+    return ApiService.postUser(user).then(() => {
+      commit('ADD_USER', user)
+      const notification = {
+        type: 'success',
+        message: 'Your user has been created!'
+      }
+      dispatch('notification/add', notification, {
+        root: true
+      }).catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem creating your event: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+        throw error
+      })
+    })
   }
 }

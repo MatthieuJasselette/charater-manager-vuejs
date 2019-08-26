@@ -22,15 +22,21 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchCharacters({ commit }) {
+  fetchCharacters({ commit, dispatch }) {
     ApiService.getCharacters()
       .then(response => commit('SET_CHARACTERS', response.data.data))
       .catch(error => {
-        console.log('There was an error:', error.response)
+        const notification = {
+          type: 'error',
+          message: 'There was a problem fetching events: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
       })
   },
 
-  fetchCharacter({ commit, getters }, id) {
+  fetchCharacter({ commit, getters, dispatch }, id) {
     let character = getters.getCharacterById(id)
     if (character) {
       commit('SET_CHARACTER', character)
@@ -38,7 +44,13 @@ export const actions = {
       ApiService.getCharacter(id)
         .then(response => commit('SET_CHARACTER', response.data.data))
         .catch(error => {
-          console.log('There was an error:', error.response)
+          const notification = {
+            type: 'error',
+            message: 'There was a problem fetching events: ' + error.message
+          }
+          dispatch('notification/add', notification, {
+            root: true
+          })
         })
     }
   }

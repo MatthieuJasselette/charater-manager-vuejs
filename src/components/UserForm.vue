@@ -3,20 +3,12 @@
     <form>
       <h3>Fill in the following form</h3>
       <div class="field">
-        <label>Title</label>
-        <input
-          v-model="user.title"
-          type="text"
-          placeholder="Add an user name"
-        />
+        <label>Name</label>
+        <input v-model="user.name" type="text" placeholder="Add an user name" />
       </div>
       <div class="field">
         <label>email</label>
-        <input
-          v-model="user.description"
-          type="text"
-          placeholder="Add an email"
-        />
+        <input v-model="user.email" type="text" placeholder="Add an email" />
       </div>
       <div class="field">
         <label>password</label>
@@ -34,7 +26,7 @@
           placeholder="Define your availability"
         />
       </div>
-      <input type="submit" class="button -fill-gradient" value="Submit" />
+      <input type="submit" class="button badge -fill-gradient" value="Submit" />
     </form>
   </div>
 </template>
@@ -55,18 +47,12 @@ export default {
       }
     },
     createUser() {
-      this.$store
-        .dispatch('createUser', this.user)
-        .then(() => {
-          this.$router.push({
-            name: 'user',
-            params: { id: this.user.id }
-          })
-          this.user = this.createFreshUser()
+      this.$store.dispatch('createUser', this.user).then(() => {
+        this.$router.push({
+          name: 'user'
         })
-        .catch(() => {
-          console.log('There was a problem creating your user.')
-        })
+        this.user = this.createFreshUser()
+      })
     }
   }
 }
