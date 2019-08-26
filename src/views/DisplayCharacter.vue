@@ -1,19 +1,28 @@
 <template>
   <div class="about">
     <h3>This is the page that will display {{ character.name }}'s datas</h3>
-    <router-link :to="{ name: 'createcharacter' }">Character creation</router-link>
-    <router-link :to="{ name: 'editcharacter', params: { id: '1' } }">Character edition</router-link>
+    <router-link :to="{ name: 'createcharacter' }"
+      >Character creation</router-link
+    >
+    <router-link :to="{ name: 'editcharacter', params: { id: '1' } }"
+      >Character edition</router-link
+    >
+    <UserCard :user="character.user" />
   </div>
 </template>
 
 <script>
 import ApiService from '@/services/ApiService.js'
+import UserCard from '@/components/UserCard.vue'
 
 export default {
   props: {
     id: {
       type: Number
     }
+  },
+  components: {
+    UserCard
   },
   data() {
     return {
