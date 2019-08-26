@@ -17,31 +17,19 @@
 </template>
 
 <script>
-import ApiService from '@/services/ApiService.js'
 import UserCard from '@/components/UserCard.vue'
+import { mapState } from 'vuex'
 
 export default {
-  props: {
-    id: {
-      type: Number
-    }
-  },
+  props: ['id'],
   components: {
     UserCard
   },
-  data() {
-    return {
-      character: {}
-    }
-  },
   created() {
-    ApiService.getCharacter(this.id)
-      .then(response => {
-        this.character = response.data.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  }
+    this.$store.dispatch('fetchCharacter', this.id)
+  },
+  computed: mapState({
+    character: state => state.characters.character
+  })
 }
 </script>

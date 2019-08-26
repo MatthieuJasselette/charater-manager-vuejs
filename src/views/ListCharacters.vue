@@ -23,6 +23,8 @@ export default {
   created() {
     this.$store.dispatch('fetchCharacters')
   },
-  computed: mapState(['characters'])
+  computed: mapState({
+    characters: state => state.characters.characters
+  })
 }
 </script>
