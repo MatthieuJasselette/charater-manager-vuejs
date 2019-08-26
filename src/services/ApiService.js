@@ -17,7 +17,16 @@ export default {
   getUsers() {
     return apiClient.get('/user')
   },
+
+  getUser(id) {
+    return apiClient.get('/user/' + id)
+  },
+
   getCharacters() {
     return apiClient.get('/character')
+  },
+
+  getCharacter(id) {
+    return apiClient.get('/character/' + id)
   }
 }

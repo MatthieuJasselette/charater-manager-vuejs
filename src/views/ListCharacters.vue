@@ -29,6 +29,7 @@ export default {
     ApiService.getCharacters()
       .then(response => {
         this.characters = response.data.data
+        console.log(response)
       })
       .catch(error => {
         console.log('There was an error:', error.response)

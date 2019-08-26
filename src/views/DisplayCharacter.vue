@@ -1,21 +1,33 @@
 <template>
   <div class="about">
-    <h3>This is the page that will display character #{{ id }} datas</h3>
-    <router-link :to="{ name: 'createcharacter' }"
-      >Character creation</router-link
-    >
-    <router-link :to="{ name: 'editcharacter', params: { id: '1' } }"
-      >Character edition</router-link
-    >
+    <h3>This is the page that will display {{ character.name }}'s datas</h3>
+    <router-link :to="{ name: 'createcharacter' }">Character creation</router-link>
+    <router-link :to="{ name: 'editcharacter', params: { id: '1' } }">Character edition</router-link>
   </div>
 </template>
 
 <script>
+import ApiService from '@/services/ApiService.js'
+
 export default {
   props: {
     id: {
       type: Number
     }
+  },
+  data() {
+    return {
+      character: {}
+    }
+  },
+  created() {
+    ApiService.getCharacter(this.id)
+      .then(response => {
+        this.character = response.data.data
+      })
+      .catch(error => {
+        console.log('There was an error:', error.response)
+      })
   }
 }
 </script>

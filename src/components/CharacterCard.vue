@@ -5,6 +5,7 @@
   >
     <div class="event-card -shadow">
       <h4 class="title">This is {{ character.name }}'s card</h4>
+      <p>{{ character.description }}</p>
     </div>
   </router-link>
 </template>
