@@ -49,7 +49,7 @@ export default {
     registerUser() {
       this.$store.dispatch('registerUser', this.user).then(() => {
         this.$router.push({
-          name: 'users'
+          name: 'home'
         })
         this.user = this.createFreshUser()
       })

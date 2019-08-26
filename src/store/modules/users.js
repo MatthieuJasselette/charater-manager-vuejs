@@ -65,8 +65,9 @@ export const actions = {
   },
 
   registerUser({ commit, dispatch }, user) {
-    return ApiService.registerUser(user).then(() => {
+    return ApiService.registerUser(user).then(response => {
       commit('ADD_USER', user)
+      commit('ADD_SESSION', response.data.access_token)
       const notification = {
         type: 'success',
         message: 'Your user has been created!'
