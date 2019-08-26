@@ -1,6 +1,11 @@
 <template>
   <div class="about">
-    <h3>This is the page that will display {{ character.name }}'s datas</h3>
+    <h3>{{ character.name }}</h3>
+    <p>{{ character.description }}</p>
+    <p>
+      Build :
+      <a :href="character.build_url">Link</a>
+    </p>
     <router-link :to="{ name: 'createcharacter' }"
       >Character creation</router-link
     >
