@@ -36,7 +36,7 @@ export default {
     createSession() {
       this.$store.dispatch('logUserIn', this.user).then(() => {
         this.$router.push({
-          name: '/'
+          name: 'home'
         })
       })
     }
