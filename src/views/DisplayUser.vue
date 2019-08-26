@@ -9,6 +9,7 @@
     <router-link :to="{ name: 'edituser', params: { id: user.id } }"
       >User edition</router-link
     >
+    <h4>{{ user.name }}'s characters</h4>
     <CharacterCard
       v-for="character of user.characters"
       :key="character.id"
@@ -34,6 +35,8 @@ export default {
   created() {
     this.$store.dispatch('fetchUser', this.id)
   },
-  computed: mapState(['user'])
+  computed: mapState({
+    user: state => state.users.user
+  })
 }
 </script>

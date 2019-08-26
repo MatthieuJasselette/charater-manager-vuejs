@@ -3,7 +3,7 @@
     <h3>
       This is the page that will list the Users through the UserCard component
     </h3>
-    <UserCard v-for="user of users.users" :key="user.id" :user="user" />
+    <UserCard v-for="user of users" :key="user.id" :user="user" />
   </div>
 </template>
 
@@ -18,6 +18,8 @@ export default {
   created() {
     this.$store.dispatch('fetchUsers')
   },
-  computed: mapState(['users'])
+  computed: mapState({
+    users: state => state.users.users
+  })
 }
 </script>
