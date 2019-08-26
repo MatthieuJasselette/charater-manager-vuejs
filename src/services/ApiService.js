@@ -12,5 +12,12 @@ const apiClient = axios.create({
 export default {
   getRaid() {
     return apiClient.get('/raid')
+  },
+
+  getUsers() {
+    return apiClient.get('/user')
+  },
+  getCharacters() {
+    return apiClient.get('/character')
   }
 }

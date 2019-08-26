@@ -1,14 +1,23 @@
 <template>
   <router-link
     class="event-link"
-    :to="{ name: 'displayuser', params: { id: '1' } }"
+    :to="{ name: 'displayuser', params: { id: user.id } }"
   >
     <div class="event-card -shadow">
-      <h4 class="title">This is a character card</h4>
+      <h4 class="title">This is {{ user.name }}'s card</h4>
     </div>
   </router-link>
 </template>
 
+<script>
+export default {
+  props: {
+    user: {
+      type: Object
+    }
+  }
+}
+</script>
 <style scoped>
 .event-card {
   padding: 20px;
