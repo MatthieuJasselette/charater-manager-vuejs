@@ -11,7 +11,9 @@ export default new Vuex.Store({
     users,
     characters
   },
-  state: {},
+  state: {
+    raid: []
+  },
   mutations: {
     SET_RAID(state, raid) {
       state.raid = raid
