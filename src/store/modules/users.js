@@ -86,7 +86,7 @@ export const actions = {
       .catch(error => {
         const notification = {
           type: 'error',
-          message: 'There was a problem fetching events: ' + error.message
+          message: 'There was a problem updating the profile: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true
@@ -95,22 +95,25 @@ export const actions = {
   },
 
   registerUser({ commit, dispatch }, user) {
-    return ApiService.registerUser(user).then(response => {
-      const token = response.data.access_token
-      localStorage.setItem('token', token)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      commit('ADD_USER', user)
-      commit('ADD_SESSION', {
-        token: token,
-        id: response.data.id
+    return ApiService.registerUser(user)
+      .then(response => {
+        const token = response.data.access_token
+        localStorage.setItem('token', token)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        commit('ADD_USER', user)
+        commit('ADD_SESSION', {
+          token: token,
+          id: response.data.id
+        })
+        const notification = {
+          type: 'success',
+          message: 'Your user has been created!'
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
       })
-      const notification = {
-        type: 'success',
-        message: 'Your user has been created!'
-      }
-      dispatch('notification/add', notification, {
-        root: true
-      }).catch(error => {
+      .catch(error => {
         const notification = {
           type: 'error',
           message: 'There was a problem creating your event: ' + error.message
@@ -120,7 +123,6 @@ export const actions = {
         })
         throw error
       })
-    })
   },
 
   logUserIn({ commit, dispatch }, user) {
