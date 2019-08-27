@@ -80,8 +80,9 @@ export const actions = {
     }
   },
 
-  updateUser({ commit, dispatch }, id, user) {
-    ApiService.updateUser(id, user)
+  updateUser({ commit, dispatch }, user) {
+    console.log('user', user)
+    ApiService.updateUser(user.id, user)
       .then(response => commit('UPDATE_USER', response.data.data))
       .catch(error => {
         const notification = {
@@ -97,9 +98,9 @@ export const actions = {
   registerUser({ commit, dispatch }, user) {
     return ApiService.registerUser(user)
       .then(response => {
-        const token = response.data.access_token
+        const token = `Bearer ${response.data.access_token}`
         localStorage.setItem('token', token)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        axios.defaults.headers.common['Authorization'] = token
         commit('ADD_USER', user)
         commit('ADD_SESSION', {
           token: token,
@@ -128,9 +129,9 @@ export const actions = {
   logUserIn({ commit, dispatch }, user) {
     return ApiService.logUserIn(user)
       .then(response => {
-        const token = response.data.access_token
+        const token = `Bearer ${response.data.access_token}`
         localStorage.setItem('token', token)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+        axios.defaults.headers.common['Authorization'] = token
         commit('ADD_SESSION', {
           token: token,
           id: response.data.id

@@ -38,6 +38,7 @@
     </form>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -75,14 +76,22 @@ export default {
     },
 
     updateUser() {
-      this.$store.dispatch('updateUser', this.user).then(() => {
-        this.$router.push({
-          name: 'displayuser',
-          params: { id: this.user.id }
+      this.$store
+        .dispatch('updateUser', this.user)
+        .then(() => {
+          this.$router.push({
+            name: 'displayuser',
+            params: { id: this.user.id }
+          })
+          this.user = this.createFreshUser()
         })
-        this.user = this.createFreshUser()
-      })
+        .catch(error => {
+          console.log(error)
+        })
     }
+  },
+  mounted() {
+    // console.log(axios.defaults.headers.common['Authorization'])
   }
 }
 </script>
