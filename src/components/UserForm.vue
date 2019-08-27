@@ -10,7 +10,7 @@
         <label>email</label>
         <input v-model="user.email" type="text" placeholder="Add an email" />
       </div>
-      <div class="field">
+      <div v-show="!userToEdit" class="field">
         <label>password</label>
         <input
           v-model="user.password"
@@ -24,6 +24,14 @@
           v-model="user.is_available"
           type="text"
           placeholder="Define your availability"
+        />
+      </div>
+      <div v-show="userToEdit" class="field">
+        <label>main_char_id</label>
+        <input
+          v-model="user.main_char_id"
+          type="text"
+          placeholder="Define your main character"
         />
       </div>
       <input type="submit" class="button badge -fill-gradient" value="Submit" />
@@ -48,7 +56,8 @@ export default {
         name: '',
         email: '',
         password: '',
-        is_available: ''
+        is_available: '',
+        main_char_id: ''
       }
     },
     registerUser() {
