@@ -13,7 +13,8 @@ export const state = {
 export const getters = {
   getUserById: state => id => {
     return state.users.find(user => user.id === id)
-  }
+  },
+  isLoggedIn: state => !!state.session.token
 }
 
 export const mutations = {
@@ -77,9 +78,12 @@ export const actions = {
 
   registerUser({ commit, dispatch }, user) {
     return ApiService.registerUser(user).then(response => {
+      const token = response.data.access_token
+      localStorage.setItem('token', token)
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       commit('ADD_USER', user)
       commit('ADD_SESSION', {
-        token: response.data.access_token,
+        token: token,
         id: response.data.id
       })
       const notification = {
@@ -105,8 +109,8 @@ export const actions = {
     return ApiService.logUserIn(user)
       .then(response => {
         const token = response.data.access_token
-        // localStorage.setItem('token', token)
-        // axios.defaults.headers.common['Authorization'] = token
+        localStorage.setItem('token', token)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
         commit('ADD_SESSION', {
           token: token,
           id: response.data.id
@@ -125,6 +129,8 @@ export const actions = {
   },
 
   logUserOut({ commit }) {
+    localStorage.removeItem('token')
+    delete axios.defaults.headers.common['Authorization']
     commit('DESTROY_SESSION')
   }
 }

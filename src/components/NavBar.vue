@@ -6,10 +6,28 @@
       <span>|</span>
       <router-link :to="{ name: 'users' }">Users</router-link>
     </nav>
-    <router-link :to="{ name: 'session' }">Session</router-link>
+    <span v-if="isLoggedIn" @click="logOut" class="button badge -fill-gradient"
+      >Log out</span
+    >
+    <router-link v-else :to="{ name: 'session' }">Session</router-link>
   </div>
 </template>
-
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('logUserOut').then(() => {
+        this.$router.push('/session')
+      })
+    }
+  }
+}
+</script>
 <style scoped>
 .nav {
   display: flex;
