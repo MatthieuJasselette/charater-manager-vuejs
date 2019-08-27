@@ -88,25 +88,20 @@ export const actions = {
   },
 
   logUserIn({ commit, dispatch }, user) {
-    return ApiService.logUserIn(user).then(response => {
-      console.log(response)
-      commit('ADD_SESSION', response.data.access_token)
-      const notification = {
-        type: 'success',
-        message: 'Your have been logged in!'
-      }
-      dispatch('notification/add', notification, {
-        root: true
-      }).catch(error => {
+    return ApiService.logUserIn(user)
+      .then(response => {
+        console.log(response)
+        commit('ADD_SESSION', response.data.access_token)
+      })
+      .catch(error => {
         const notification = {
           type: 'error',
-          message: 'There was a problem logged you in: ' + error.message
+          message: 'There was a problem logging you in: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true
         })
         throw error
       })
-    })
   }
 }
