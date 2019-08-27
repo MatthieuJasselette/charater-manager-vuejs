@@ -25,8 +25,8 @@ export const mutations = {
     state.users.push(user)
   },
 
-  ADD_SESSION(state, token) {
-    state.session = token
+  ADD_SESSION(state, response) {
+    state.session = response
   }
 }
 
@@ -67,7 +67,10 @@ export const actions = {
   registerUser({ commit, dispatch }, user) {
     return ApiService.registerUser(user).then(response => {
       commit('ADD_USER', user)
-      commit('ADD_SESSION', response.data.access_token)
+      commit('ADD_SESSION', {
+        token: response.data.access_token,
+        id: response.data.id
+      })
       const notification = {
         type: 'success',
         message: 'Your user has been created!'
@@ -91,7 +94,10 @@ export const actions = {
     return ApiService.logUserIn(user)
       .then(response => {
         console.log(response)
-        commit('ADD_SESSION', response.data.access_token)
+        commit('ADD_SESSION', {
+          token: response.data.access_token,
+          id: response.data.id
+        })
       })
       .catch(error => {
         const notification = {
