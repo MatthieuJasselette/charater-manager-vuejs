@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <form @submit.prevent="registerUser">
+    <form @submit.prevent="submitUser">
       <h3>Fill in the following form</h3>
       <div class="field">
         <label>Name</label>
@@ -60,10 +60,25 @@ export default {
         main_char_id: ''
       }
     },
+
+    submitUser() {
+      return this.userToEdit ? this.updateUser() : this.registerUser()
+    },
+
     registerUser() {
       this.$store.dispatch('registerUser', this.user).then(() => {
         this.$router.push({
           name: 'home'
+        })
+        this.user = this.createFreshUser()
+      })
+    },
+
+    updateUser() {
+      this.$store.dispatch('updateUser', this.user).then(() => {
+        this.$router.push({
+          name: 'displayuser',
+          params: { id: this.user.id }
         })
         this.user = this.createFreshUser()
       })
