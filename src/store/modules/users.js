@@ -3,7 +3,10 @@ import ApiService from '@/services/ApiService.js'
 export const state = {
   users: [],
   user: {},
-  session: {}
+  session: {
+    token: '',
+    id: ''
+  }
 }
 
 export const getters = {
@@ -27,6 +30,13 @@ export const mutations = {
 
   ADD_SESSION(state, response) {
     state.session = response
+  },
+
+  DESTROY_SESSION(state) {
+    state.session = {
+      token: '',
+      id: ''
+    }
   }
 }
 
@@ -93,7 +103,8 @@ export const actions = {
   logUserIn({ commit, dispatch }, user) {
     return ApiService.logUserIn(user)
       .then(response => {
-        console.log(response)
+        // to store the token in local storage
+        // localStorage.setItem('token', response.data.access_token)
         commit('ADD_SESSION', {
           token: response.data.access_token,
           id: response.data.id
@@ -109,5 +120,9 @@ export const actions = {
         })
         throw error
       })
+  },
+
+  logUserOut({ commit }) {
+    commit('DESTROY_SESSION')
   }
 }
