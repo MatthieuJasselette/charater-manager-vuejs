@@ -26,6 +26,10 @@ export const mutations = {
     state.user = user
   },
 
+  UPDATE_USER(state, user) {
+    state.user = user
+  },
+
   ADD_USER(state, user) {
     state.users.push(user)
   },
@@ -74,6 +78,20 @@ export const actions = {
           })
         })
     }
+  },
+
+  updateUser({ commit, dispatch }, id, user) {
+    ApiService.updateUser(id, user)
+      .then(response => commit('UPDATE_USER', response.data.data))
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem fetching events: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
   },
 
   registerUser({ commit, dispatch }, user) {

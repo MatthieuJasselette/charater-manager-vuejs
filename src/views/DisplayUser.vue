@@ -23,11 +23,6 @@ import CharacterCard from '@/components/CharacterCard.vue'
 import { mapState } from 'vuex'
 
 export default {
-  // props: {
-  //   id: {
-  //     type: Number
-  //   }
-  // },
   props: ['id'],
   components: {
     CharacterCard

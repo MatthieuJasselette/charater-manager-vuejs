@@ -32,9 +32,14 @@
 </template>
 <script>
 export default {
+  props: {
+    userToEdit: {
+      type: Object
+    }
+  },
   data() {
     return {
-      user: this.createFreshUser()
+      user: this.userToEdit ? this.userToEdit : this.createFreshUser()
     }
   },
   methods: {

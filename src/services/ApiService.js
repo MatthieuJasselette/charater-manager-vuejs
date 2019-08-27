@@ -23,6 +23,10 @@ export default {
     return apiClient.get('/user/' + id)
   },
 
+  updateUser(id, user) {
+    return apiClient.put('/user/' + id, user)
+  },
+
   registerUser(user) {
     return apiClient.post('/register', user)
   },
