@@ -1,10 +1,11 @@
 import ApiService from '@/services/ApiService.js'
+import axios from 'axios'
 
 export const state = {
   users: [],
   user: {},
   session: {
-    token: '',
+    token: localStorage.getItem('token') || '',
     id: ''
   }
 }
@@ -103,10 +104,11 @@ export const actions = {
   logUserIn({ commit, dispatch }, user) {
     return ApiService.logUserIn(user)
       .then(response => {
-        // to store the token in local storage
-        // localStorage.setItem('token', response.data.access_token)
+        const token = response.data.access_token
+        // localStorage.setItem('token', token)
+        // axios.defaults.headers.common['Authorization'] = token
         commit('ADD_SESSION', {
-          token: response.data.access_token,
+          token: token,
           id: response.data.id
         })
       })
