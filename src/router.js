@@ -12,7 +12,7 @@ import EditUser from '@/views/EditUser.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -51,19 +51,39 @@ export default new Router({
     {
       path: '/character/create',
       name: 'createcharacter',
-      component: CreateCharacter
+      component: CreateCharacter,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/character/:id/edit',
       name: 'editcharacter',
       component: EditCharacter,
-      props: true
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/user/:id/edit',
       name: 'edituser',
       component: EditUser,
-      props: true
+      props: true,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('token')
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+    next('/')
+  }
+  next()
+})
+
+export default router
