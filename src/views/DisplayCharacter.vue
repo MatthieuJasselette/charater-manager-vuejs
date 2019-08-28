@@ -12,6 +12,9 @@
     <router-link :to="{ name: 'editcharacter', params: { id: character.id } }"
       >Character edition</router-link
     >
+    <span class="button badge -fill-gradient" @click="deleteCharacter"
+      >Delete</span
+    >
     <UserCard :user="character.user" />
   </div>
 </template>
@@ -30,6 +33,13 @@ export default {
   },
   computed: mapState({
     character: state => state.characters.character
-  })
+  }),
+  methods: {
+    deleteCharacter() {
+      this.$store
+        .dispatch('deleteCharacter', this.character)
+        .then(this.$router.push({ name: 'characters' }))
+    }
+  }
 }
 </script>

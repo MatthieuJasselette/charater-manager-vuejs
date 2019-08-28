@@ -10,9 +10,6 @@
         <p>{{ character.description }}</p>
       </div>
     </router-link>
-    <span class="button badge -fill-gradient" @click="deleteCharacter"
-      >Delete</span
-    >
   </div>
 </template>
 
@@ -21,13 +18,6 @@ export default {
   props: {
     character: {
       type: Object
-    }
-  },
-  methods: {
-    deleteCharacter() {
-      this.$store
-        .dispatch('deleteCharacter', this.character)
-        .then(this.$router.push({ name: 'characters' }))
     }
   }
 }
