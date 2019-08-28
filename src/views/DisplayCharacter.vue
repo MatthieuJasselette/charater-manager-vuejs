@@ -9,7 +9,7 @@
     <router-link :to="{ name: 'createcharacter' }"
       >Character creation</router-link
     >
-    <router-link :to="{ name: 'editcharacter', params: { id: '1' } }"
+    <router-link :to="{ name: 'editcharacter', params: { id: character.id } }"
       >Character edition</router-link
     >
     <UserCard :user="character.user" />

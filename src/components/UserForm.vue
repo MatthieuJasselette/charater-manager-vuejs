@@ -89,9 +89,6 @@ export default {
           console.log(error)
         })
     }
-  },
-  mounted() {
-    // console.log(axios.defaults.headers.common['Authorization'])
   }
 }
 </script>

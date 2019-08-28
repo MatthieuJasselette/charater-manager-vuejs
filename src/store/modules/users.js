@@ -116,7 +116,7 @@ export const actions = {
       .catch(error => {
         const notification = {
           type: 'error',
-          message: 'There was a problem creating your event: ' + error.message
+          message: 'There was a problem creating your profile: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true

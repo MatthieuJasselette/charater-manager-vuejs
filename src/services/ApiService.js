@@ -43,5 +43,13 @@ export default {
 
   getCharacter(id) {
     return apiClient.get('/character/' + id)
+  },
+
+  createCharacter(character) {
+    return apiClient.post('/character', character)
+  },
+
+  updateCharacter(id, character) {
+    return apiClient.put('/character/' + id, character)
   }
 }

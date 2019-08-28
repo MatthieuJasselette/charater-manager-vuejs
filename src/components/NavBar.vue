@@ -13,11 +13,20 @@
   </div>
 </template>
 <script>
+// import { mapState } from 'vuex'
+
 export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
     }
+    // loggedUser() {
+    //   return this.$store.getters.getUserById(this.id) || ''
+    // },
+    // ...mapState({
+    //   id: state => state.users.session.id
+    // })
+    // doesn't work
   },
   methods: {
     logOut() {

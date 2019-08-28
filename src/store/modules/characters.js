@@ -18,6 +18,14 @@ export const mutations = {
 
   SET_CHARACTER(state, character) {
     state.character = character
+  },
+
+  ADD_CHARACTER(state, character) {
+    state.characters.push(character)
+  },
+
+  UPDATE_CHARACTER(state, character) {
+    state.character = character
   }
 }
 
@@ -53,5 +61,44 @@ export const actions = {
           })
         })
     }
+  },
+
+  createCharacter({ commit, dispatch }, character) {
+    return ApiService.createCharacter(character)
+      .then(response => {
+        commit('ADD_CHARACTER', response.data.data)
+        const notification = {
+          type: 'success',
+          message: 'Your user has been created!'
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message:
+            'There was a problem creating your character: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+        throw error
+      })
+  },
+
+  updateCharacter({ commit, dispatch }, character) {
+    ApiService.updateCharacter(character.id, character)
+      .then(response => commit('UPDATE_CHARACTER', response.data.data))
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem updating the profile: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
   }
 }
