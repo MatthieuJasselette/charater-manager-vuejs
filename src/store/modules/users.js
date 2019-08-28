@@ -81,7 +81,6 @@ export const actions = {
   },
 
   updateUser({ commit, dispatch }, user) {
-    console.log('user', user)
     ApiService.updateUser(user.id, user)
       .then(response => commit('UPDATE_USER', response.data.data))
       .catch(error => {
