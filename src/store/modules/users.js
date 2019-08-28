@@ -35,6 +35,7 @@ export const mutations = {
   },
 
   ADD_SESSION(state, response) {
+    localStorage.setItem('token', response.token)
     state.session = response
   },
 
@@ -97,11 +98,9 @@ export const actions = {
   registerUser({ commit, dispatch }, user) {
     return ApiService.registerUser(user)
       .then(response => {
-        const token = `Bearer ${response.data.access_token}`
-        localStorage.setItem('token', token)
         commit('ADD_USER', user)
         commit('ADD_SESSION', {
-          token: token,
+          token: `Bearer ${response.data.access_token}`,
           id: response.data.id
         })
         const notification = {
@@ -128,10 +127,8 @@ export const actions = {
     return ApiService.logUserIn(user)
       .then(response => {
         dispatch('fetchUser', response.data.id)
-        const token = `Bearer ${response.data.access_token}`
-        localStorage.setItem('token', token)
         commit('ADD_SESSION', {
-          token: token,
+          token: `Bearer ${response.data.access_token}`,
           id: response.data.id
         })
       })
