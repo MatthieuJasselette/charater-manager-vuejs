@@ -7,11 +7,11 @@
         <input v-model="user.name" type="text" placeholder="Add an user name" />
       </div>
       <div class="field">
-        <label>email</label>
-        <input v-model="user.email" type="text" placeholder="Add an email" />
+        <label>Email</label>
+        <input v-model="user.email" type="email" placeholder="Add an email" />
       </div>
       <div v-show="!userToEdit" class="field">
-        <label>password</label>
+        <label>Password</label>
         <input
           v-model="user.password"
           type="password"
@@ -19,11 +19,11 @@
         />
       </div>
       <div class="field">
-        <label>is_available</label>
+        <label>Is_available</label>
         <input v-model="user.is_available" type="checkbox" />
       </div>
       <div v-show="userToEdit" class="field">
-        <label>main_char_id</label>
+        <label>Main_char_id</label>
         <select v-model="user.main_char_id">
           <option disabled value>No character selected</option>
           <option

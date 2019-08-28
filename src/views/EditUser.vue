@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h3>This edits user #{{ id }} through the UserForm component</h3>
+    <h3>You are editing {{ user.name }}</h3>
     <UserForm :userToEdit="user" />
   </div>
 </template>

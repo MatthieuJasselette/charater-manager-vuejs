@@ -194,6 +194,7 @@ textarea {
   -webkit-appearance: none;
 }
 [type='text'],
+[type='email'],
 [type='number'],
 [type='search'],
 [type='password'] {
