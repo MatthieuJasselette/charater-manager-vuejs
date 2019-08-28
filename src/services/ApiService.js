@@ -51,5 +51,9 @@ export default {
 
   updateCharacter(id, character) {
     return apiClient.put('/character/' + id, character)
+  },
+
+  deleteCharacter(id) {
+    return apiClient.delete('/character/' + id)
   }
 }

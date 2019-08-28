@@ -1,14 +1,19 @@
 <template>
-  <router-link
-    v-if="character"
-    class="event-link"
-    :to="{ name: 'displaycharacter', params: { id: character.id } }"
-  >
-    <div class="event-card -shadow">
-      <h4 class="title">This is {{ character.name }}'s card</h4>
-      <p>{{ character.description }}</p>
-    </div>
-  </router-link>
+  <div>
+    <router-link
+      v-if="character"
+      class="event-link"
+      :to="{ name: 'displaycharacter', params: { id: character.id } }"
+    >
+      <div class="event-card -shadow">
+        <h4 class="title">This is {{ character.name }}'s card</h4>
+        <p>{{ character.description }}</p>
+      </div>
+    </router-link>
+    <span class="button badge -fill-gradient" @click="deleteCharacter"
+      >Delete</span
+    >
+  </div>
 </template>
 
 <script>
@@ -16,6 +21,13 @@ export default {
   props: {
     character: {
       type: Object
+    }
+  },
+  methods: {
+    deleteCharacter() {
+      this.$store
+        .dispatch('deleteCharacter', this.character)
+        .then(this.$router.push({ name: 'characters' }))
     }
   }
 }

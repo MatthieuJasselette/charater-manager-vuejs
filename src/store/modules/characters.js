@@ -26,6 +26,10 @@ export const mutations = {
 
   UPDATE_CHARACTER(state, character) {
     state.character = character
+  },
+
+  REMOVE_CHARACTER(state, id) {
+    state.characters.filter(character => character.id !== id)
   }
 }
 
@@ -91,6 +95,20 @@ export const actions = {
   updateCharacter({ commit, dispatch }, character) {
     ApiService.updateCharacter(character.id, character)
       .then(response => commit('UPDATE_CHARACTER', response.data.data))
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem updating the profile: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
+  },
+
+  deleteCharacter({ commit, dispatch }, character) {
+    ApiService.deleteCharacter(character.id)
+      .then(commit('REMOVE_CHARACTER', character.id))
       .catch(error => {
         const notification = {
           type: 'error',
