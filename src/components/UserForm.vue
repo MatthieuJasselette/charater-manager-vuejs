@@ -24,11 +24,15 @@
       </div>
       <div v-show="userToEdit" class="field">
         <label>main_char_id</label>
-        <input
-          v-model="user.main_char_id"
-          type="text"
-          placeholder="Define your main character"
-        />
+        <select v-model="user.main_char_id">
+          <option disabled value>No character selected</option>
+          <option
+            v-for="character of user.characters"
+            :key="character.id"
+            :value="character.id"
+            >{{ character.name }}</option
+          >
+        </select>
       </div>
       <input type="submit" class="button badge -fill-gradient" value="Submit" />
     </form>
