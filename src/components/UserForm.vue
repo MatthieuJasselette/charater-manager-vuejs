@@ -20,11 +20,7 @@
       </div>
       <div class="field">
         <label>is_available</label>
-        <input
-          v-model="user.is_available"
-          type="text"
-          placeholder="Define your availability"
-        />
+        <input v-model="user.is_available" type="checkbox" />
       </div>
       <div v-show="userToEdit" class="field">
         <label>main_char_id</label>
