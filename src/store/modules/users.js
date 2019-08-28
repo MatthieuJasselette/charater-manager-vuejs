@@ -100,7 +100,6 @@ export const actions = {
       .then(response => {
         const token = `Bearer ${response.data.access_token}`
         localStorage.setItem('token', token)
-        axios.defaults.headers.common['Authorization'] = token
         commit('ADD_USER', user)
         commit('ADD_SESSION', {
           token: token,
@@ -131,7 +130,6 @@ export const actions = {
       .then(response => {
         const token = `Bearer ${response.data.access_token}`
         localStorage.setItem('token', token)
-        axios.defaults.headers.common['Authorization'] = token
         commit('ADD_SESSION', {
           token: token,
           id: response.data.id
