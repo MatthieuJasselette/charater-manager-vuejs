@@ -10,6 +10,11 @@ new Vue({
   router,
   store,
   created() {
+    const sessionString = localStorage.getItem('session')
+    if (sessionString) {
+      const sessionData = JSON.parse(sessionString)
+      this.$store.commit('SET_SESSION', sessionData)
+    }
     axios.interceptors.response.use(
       response => response,
       error => {

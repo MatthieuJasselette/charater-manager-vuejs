@@ -28,7 +28,11 @@ import UserCard from '@/components/UserCard.vue'
 import { mapState } from 'vuex'
 
 export default {
-  props: ['id'],
+  props: {
+    id: {
+      type: String
+    }
+  },
   components: {
     UserCard
   },

@@ -4,7 +4,7 @@ export const state = {
   users: [],
   user: {},
   session: {
-    token: localStorage.getItem('token') || '',
+    token: '',
     id: ''
   }
 }
@@ -33,13 +33,13 @@ export const mutations = {
     state.users.push(user)
   },
 
-  ADD_SESSION(state, response) {
-    localStorage.setItem('token', response.token)
-    state.session = response
+  SET_SESSION(state, session) {
+    localStorage.setItem('session', JSON.stringify(session))
+    state.session = session
   },
 
   DESTROY_SESSION(state) {
-    localStorage.removeItem('token')
+    localStorage.removeItem('session')
     state.session = {
       token: '',
       id: ''
@@ -99,7 +99,7 @@ export const actions = {
     return ApiService.registerUser(user)
       .then(response => {
         commit('ADD_USER', user)
-        commit('ADD_SESSION', {
+        commit('SET_SESSION', {
           token: `Bearer ${response.data.access_token}`,
           id: response.data.id
         })
@@ -127,7 +127,7 @@ export const actions = {
     return ApiService.logUserIn(user)
       .then(response => {
         dispatch('fetchUser', response.data.id)
-        commit('ADD_SESSION', {
+        commit('SET_SESSION', {
           token: `Bearer ${response.data.access_token}`,
           id: response.data.id
         })

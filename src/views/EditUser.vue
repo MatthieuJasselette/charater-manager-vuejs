@@ -13,7 +13,11 @@ export default {
   components: {
     UserForm
   },
-  props: ['id'],
+  props: {
+    id: {
+      type: String
+    }
+  },
   created() {
     this.$store.dispatch('fetchUser', this.id)
   },

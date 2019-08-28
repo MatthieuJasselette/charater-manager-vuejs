@@ -1,12 +1,14 @@
 import axios from 'axios'
 
+const session = localStorage.getItem('session')
+const access_token = session ? JSON.parse(session).token : ''
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/api/v1',
   withCredentials: false, // This is the default
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    Authorization: localStorage.getItem('token')
+    Authorization: access_token
   }
 })
 
