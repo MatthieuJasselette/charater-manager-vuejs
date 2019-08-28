@@ -1,5 +1,4 @@
 import ApiService from '@/services/ApiService.js'
-import axios from 'axios'
 
 export const state = {
   users: [],
@@ -40,6 +39,7 @@ export const mutations = {
   },
 
   DESTROY_SESSION(state) {
+    localStorage.removeItem('token')
     state.session = {
       token: '',
       id: ''
@@ -145,8 +145,6 @@ export const actions = {
   },
 
   logUserOut({ commit }) {
-    localStorage.removeItem('token')
-    delete axios.defaults.headers.common['Authorization']
     commit('DESTROY_SESSION')
   }
 }
