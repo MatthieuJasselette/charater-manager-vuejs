@@ -128,6 +128,7 @@ export const actions = {
   logUserIn({ commit, dispatch }, user) {
     return ApiService.logUserIn(user)
       .then(response => {
+        dispatch('fetchUser', response.data.id)
         const token = `Bearer ${response.data.access_token}`
         localStorage.setItem('token', token)
         commit('ADD_SESSION', {
