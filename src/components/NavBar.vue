@@ -6,9 +6,12 @@
       <span>|</span>
       <router-link :to="{ name: 'users' }">Users</router-link>
     </nav>
-    <span v-if="isLoggedIn" @click="logOut" class="button badge -fill-gradient"
-      >Log out</span
-    >
+    <div v-if="isLoggedIn">
+      <router-link :to="{ name: 'createcharacter' }"
+        >Character creation</router-link
+      >
+      <span @click="logOut" class="button badge -fill-gradient">Log out</span>
+    </div>
     <router-link v-else :to="{ name: 'session' }">Session</router-link>
   </div>
 </template>

@@ -6,15 +6,19 @@
       Build :
       <a :href="character.build_url">Link</a>
     </p>
-    <router-link :to="{ name: 'createcharacter' }"
-      >Character creation</router-link
-    >
-    <router-link :to="{ name: 'editcharacter', params: { id: character.id } }"
+
+    <router-link
+      v-if="isLoggedIn"
+      :to="{ name: 'editcharacter', params: { id: character.id } }"
       >Character edition</router-link
     >
-    <span class="button badge -fill-gradient" @click="deleteCharacter"
+    <span
+      v-if="isLoggedIn"
+      class="button badge -fill-gradient"
+      @click="deleteCharacter"
       >Delete</span
     >
+    <h4>Owner</h4>
     <UserCard :user="character.user" />
   </div>
 </template>
@@ -31,9 +35,14 @@ export default {
   created() {
     this.$store.dispatch('fetchCharacter', this.id)
   },
-  computed: mapState({
-    character: state => state.characters.character
-  }),
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    },
+    ...mapState({
+      character: state => state.characters.character
+    })
+  },
   methods: {
     deleteCharacter() {
       this.$store
