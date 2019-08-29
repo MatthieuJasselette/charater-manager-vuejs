@@ -49,7 +49,7 @@ const router = new Router({
       props: true
     },
     {
-      path: '/character/create',
+      path: '/characters/create',
       name: 'createcharacter',
       component: CreateCharacter,
       meta: {
