@@ -13,7 +13,12 @@ export default {
   components: {
     CharacterForm
   },
-  props: ['id'],
+  props: {
+    id: {
+      type: String,
+      default: null
+    }
+  },
   created() {
     this.$store.dispatch('fetchCharacter', this.id)
   },
