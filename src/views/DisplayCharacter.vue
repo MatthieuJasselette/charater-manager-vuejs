@@ -8,12 +8,12 @@
     </p>
 
     <router-link
-      v-if="isLoggedIn"
+      v-if="isLoggedIn && sessionId === character.user.id"
       :to="{ name: 'editcharacter', params: { id: character.id } }"
       >Character edition</router-link
     >
     <span
-      v-if="isLoggedIn"
+      v-if="isLoggedIn && sessionId === character.user.id"
       class="button badge -fill-gradient"
       @click="deleteCharacter"
       >Delete</span
@@ -44,7 +44,8 @@ export default {
       return this.$store.getters.isLoggedIn
     },
     ...mapState({
-      character: state => state.characters.character
+      character: state => state.characters.character,
+      sessionId: state => state.users.session.id
     })
   },
   methods: {

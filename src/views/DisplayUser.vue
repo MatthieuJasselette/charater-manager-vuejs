@@ -4,7 +4,7 @@
     <p v-if="user.is_available">This user is available</p>
     <p v-else>This user is currently unavailable</p>
     <router-link
-      v-if="isLoggedIn"
+      v-if="isLoggedIn && sessionId === user.id"
       :to="{ name: 'edituser', params: { id: user.id } }"
       >User edition</router-link
     >
@@ -38,7 +38,8 @@ export default {
       return this.$store.getters.isLoggedIn
     },
     ...mapState({
-      user: state => state.users.user
+      user: state => state.users.user,
+      sessionId: state => state.users.session.id
     })
   }
 }
