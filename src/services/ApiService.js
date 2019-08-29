@@ -1,4 +1,6 @@
 import axios from 'axios'
+import router from '@/router'
+import store from '@/store/store'
 
 const session = localStorage.getItem('session')
 const access_token = session ? JSON.parse(session).token : ''
@@ -11,6 +13,20 @@ const apiClient = axios.create({
     Authorization: access_token
   }
 })
+
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    if (error.response.status === 401) {
+      console.log('expired or invalid token')
+      // runs
+      store.dispatch('logUserOut')
+      router.push('/session')
+      // doesn't run
+    }
+    return Promise.reject(error)
+  }
+)
 
 export default {
   getRaid() {
