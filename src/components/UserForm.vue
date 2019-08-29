@@ -44,6 +44,8 @@ export default {
   props: {
     userToEdit: {
       type: Object
+      // ,
+      // default: null
     }
   },
   data() {

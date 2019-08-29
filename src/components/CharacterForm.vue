@@ -33,7 +33,8 @@
 export default {
   props: {
     characterToEdit: {
-      type: Object
+      type: Object,
+      default: null
     }
   },
   data() {
