@@ -29,7 +29,9 @@ export default {
     if (to.matched.some(record => record.meta.restricted)) {
       console.log('restricted route !') //triggers
       next(vm => {
-        vm.$router.push({ name: 'home' })
+        if (vm.user.id !== vm.sessionId) {
+          vm.$router.push({ name: 'home' })
+        }
       })
     }
     next()
