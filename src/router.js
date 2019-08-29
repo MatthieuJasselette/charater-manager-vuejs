@@ -64,6 +64,12 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         restricted: true
+      },
+      beforeEnter(to, from, next) {
+        console.log('router', this)
+        // console.log(this.sessionID)
+        // console.log(this.character.user.id)
+        next()
       }
     },
     {

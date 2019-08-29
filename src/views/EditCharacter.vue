@@ -25,5 +25,21 @@ export default {
   computed: mapState({
     character: state => state.characters.character
   })
+  // ,
+  // beforeRouteEnter(to, from, next) {
+  //   if (to.matched.some(record => record.meta.restricted)) {
+  //     next(vm => {
+  //       // console.log(vm)
+  //       console.log(vm.$store._modules.root.state.characters.character.user) // undefined
+  //       // if (
+  //       //   vm.$store._modules.root.state.characters.character.user.id !==
+  //       //   vm.$store._modules.root.state.users.session.id
+  //       // ) {
+  //       //   vm.$router.push({ name: 'home' })
+  //       // }
+  //     })
+  //   }
+  //   next()
+  // }
 }
 </script>
