@@ -62,7 +62,8 @@ const router = new Router({
       component: EditCharacter,
       props: true,
       meta: {
-        requiresAuth: true
+        // requiresAuth: true,
+        restricted: true
       }
     },
     {
@@ -71,7 +72,8 @@ const router = new Router({
       component: EditUser,
       props: true,
       meta: {
-        requiresAuth: true
+        // requiresAuth: true,
+        restricted: true
       }
     }
   ]
@@ -80,7 +82,12 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem('session')
 
-  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+  if (
+    to.matched.some(record => record.meta.requiresAuth) &&
+    !loggedIn
+    // &&
+    // !to.matched.some(record => record.meta.restricted)
+  ) {
     next('/')
   }
   next()
