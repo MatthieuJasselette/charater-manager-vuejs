@@ -27,9 +27,11 @@ export default {
   }),
   beforeRouteEnter(to, from, next) {
     if (to.matched.some(record => record.meta.restricted)) {
-      console.log('restricted route !') //triggers
       next(vm => {
-        if (vm.user.id !== vm.sessionId) {
+        if (
+          vm.$options.propsData.id !==
+          vm.$store._modules.root.state.users.session.id
+        ) {
           vm.$router.push({ name: 'home' })
         }
       })
