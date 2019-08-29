@@ -24,6 +24,15 @@ export default {
   },
   computed: mapState({
     user: state => state.users.user
-  })
+  }),
+  beforeRouteEnter(to, from, next) {
+    if (to.matched.some(record => record.meta.restricted)) {
+      console.log('restricted route !') //triggers
+      next(vm => {
+        vm.$router.push({ name: 'home' })
+      })
+    }
+    next()
+  }
 }
 </script>

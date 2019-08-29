@@ -62,7 +62,7 @@ const router = new Router({
       component: EditCharacter,
       props: true,
       meta: {
-        // requiresAuth: true,
+        requiresAuth: true,
         restricted: true
       }
     },
@@ -72,7 +72,7 @@ const router = new Router({
       component: EditUser,
       props: true,
       meta: {
-        // requiresAuth: true,
+        requiresAuth: true,
         restricted: true
       }
     }
@@ -84,9 +84,8 @@ router.beforeEach((to, from, next) => {
 
   if (
     to.matched.some(record => record.meta.requiresAuth) &&
-    !loggedIn
-    // &&
-    // !to.matched.some(record => record.meta.restricted)
+    !loggedIn &&
+    !to.matched.some(record => record.meta.restricted)
   ) {
     next('/')
   }

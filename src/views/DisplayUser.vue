@@ -41,6 +41,13 @@ export default {
       user: state => state.users.user,
       sessionId: state => state.users.session.id
     })
+  },
+  beforeRouteLeave(to, from, next) {
+    if (to.matched.some(record => record.meta.restricted)) {
+      console.log('restricted route ! (display)')
+      //doesn't trigger from the adress bar
+    }
+    next()
   }
 }
 </script>

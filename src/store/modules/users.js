@@ -41,6 +41,7 @@ export const mutations = {
 
   DESTROY_SESSION(state) {
     localStorage.removeItem('session')
+    apiClient.defaults.headers.common.Authorization = null
     state.session = {
       token: '',
       id: ''
