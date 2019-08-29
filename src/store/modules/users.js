@@ -1,4 +1,4 @@
-import ApiService from '@/services/ApiService.js'
+import ApiService, { apiClient } from '@/services/ApiService.js'
 
 export const state = {
   users: [],
@@ -35,6 +35,7 @@ export const mutations = {
 
   SET_SESSION(state, session) {
     localStorage.setItem('session', JSON.stringify(session))
+    apiClient.defaults.headers.common.Authorization = session.token
     state.session = session
   },
 

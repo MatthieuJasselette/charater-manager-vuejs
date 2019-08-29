@@ -2,15 +2,12 @@ import axios from 'axios'
 import router from '@/router'
 import store from '@/store/store'
 
-const session = localStorage.getItem('session')
-const access_token = session ? JSON.parse(session).token : ''
-const apiClient = axios.create({
+export const apiClient = axios.create({
   baseURL: 'http://localhost:8000/api/v1',
   withCredentials: false, // This is the default
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: access_token
+    'Content-Type': 'application/json'
   }
 })
 
@@ -19,10 +16,8 @@ apiClient.interceptors.response.use(
   error => {
     if (error.response.status === 401) {
       console.log('expired or invalid token')
-      // runs
       store.dispatch('logUserOut')
       router.push('/session')
-      // doesn't run
     }
     return Promise.reject(error)
   }
