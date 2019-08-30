@@ -21,7 +21,7 @@
       <div class="field">
         <div v-if="!user.image_url">
           <label>Select an image</label>
-          <input type="file" @change="onFileChange" />
+          <input type="file" @change="onFileChange" accept="image/*" />
         </div>
         <div v-else>
           <img :src="user.image_url" />
