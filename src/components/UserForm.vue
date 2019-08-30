@@ -19,6 +19,16 @@
         />
       </div>
       <div class="field">
+        <div v-if="!user.image_url">
+          <label>Select an image</label>
+          <input type="file" @change="onFileChange" />
+        </div>
+        <div v-else>
+          <img :src="user.image_url" />
+          <button @click="removeImage">Remove image</button>
+        </div>
+      </div>
+      <div class="field">
         <label>Is_available</label>
         <input v-model="user.is_available" type="checkbox" />
       </div>
@@ -53,13 +63,34 @@ export default {
     }
   },
   methods: {
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.createImage(files[0])
+    },
+
+    createImage(file) {
+      const reader = new FileReader()
+      const vm = this
+
+      reader.onload = e => {
+        vm.user.image_url = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+
+    removeImage: function() {
+      this.image = ''
+    },
+
     createFreshUser() {
       return {
         name: '',
         email: '',
         password: '',
         is_available: '',
-        main_char_id: ''
+        main_char_id: '',
+        image_url: ''
       }
     },
 

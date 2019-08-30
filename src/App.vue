@@ -197,6 +197,7 @@ textarea {
 [type='email'],
 [type='number'],
 [type='search'],
+[type='file'],
 [type='password'] {
   height: 52px;
   width: 100%;
@@ -206,6 +207,7 @@ textarea {
 [type='text']:focus,
 [type='number']:focus,
 [type='search']:focus,
+[type='file']:focus,
 [type='password']:focus {
   border-color: #39b982;
 }
