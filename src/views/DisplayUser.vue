@@ -1,7 +1,10 @@
 <template>
   <div class="about">
     <h3>{{ user.name }}</h3>
-    <img :src="user.image.image_url" :alt="user.name" />
+    <img
+      :src="'http://localhost:8000/thumbs/' + user.image.name"
+      :alt="user.name"
+    />
     <p v-if="user.is_available">This user is available</p>
     <p v-else>This user is currently unavailable</p>
     <router-link
