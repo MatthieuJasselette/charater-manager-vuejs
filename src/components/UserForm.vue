@@ -18,7 +18,7 @@
           placeholder="Add a password"
         />
       </div>
-      <div class="field">
+      <div v-if="userToEdit" class="field">
         <div v-if="user.image.name">
           <!-- <div v-else> -->
           <img :src="user.image.name" />
