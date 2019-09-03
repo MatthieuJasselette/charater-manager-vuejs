@@ -97,6 +97,28 @@ export const actions = {
       })
   },
 
+  updateImage({ dispatch }, { image, id }) {
+    ApiService.deleteImage(id)
+    ApiService.createImage(image)
+      .then(response => {
+        console.log('SUCCESS!!', response)
+        // commit a fetchUser to refresh the img
+      })
+      .catch(error => {
+        console.log('FAILURE!!', error)
+      })
+    // .catch(error => {
+    //   const notification = {
+    //     type: 'error',
+    //     message: 'There was a problem updating the profile: ' + error.message
+    //   }
+    //   console.log(notification)
+    //   dispatch('notification/add', notification, {
+    //     root: true
+    //   })
+    // })
+  },
+
   registerUser({ commit, dispatch }, user) {
     return ApiService.registerUser(user)
       .then(response => {

@@ -12,7 +12,11 @@
       </div>
       <div v-show="!userToEdit" class="field">
         <label>Password</label>
-        <input v-model="user.password" type="password" placeholder="Add a password" />
+        <input
+          v-model="user.password"
+          type="password"
+          placeholder="Add a password"
+        />
       </div>
       <div v-if="userToEdit" class="field">
         <div v-if="user.image.name">
@@ -36,7 +40,7 @@
             />
           </label>
         </div>
-        <button type="button" v-on:click="submitFile()">Submit</button>
+        <!-- <button type="button" v-on:click="submitFile()">Submit</button> -->
       </div>
       <div class="field">
         <label>Is_available</label>
@@ -50,7 +54,8 @@
             v-for="character of user.characters"
             :key="character.id"
             :value="character.id"
-          >{{ character.name }}</option>
+            >{{ character.name }}</option
+          >
         </select>
       </div>
       <input type="submit" class="button badge -fill-gradient" value="Submit" />
@@ -70,7 +75,8 @@ export default {
     return {
       user: this.userToEdit ? this.userToEdit : this.createFreshUser(),
       isImgChanged: false,
-      file: ''
+      file: '',
+      previousImgId: ''
     }
   },
   methods: {
@@ -137,10 +143,13 @@ export default {
     },
 
     submitFile() {
-      // send id of img to replace
+      let previousImgId = this.previousImgId
       let formData = new FormData()
       formData.append('file', this.file)
-      this.$store.dispatch('updateImage', formData)
+      this.$store.dispatch('updateImage', {
+        image: formData,
+        id: previousImgId
+      })
     }
   }
 }
