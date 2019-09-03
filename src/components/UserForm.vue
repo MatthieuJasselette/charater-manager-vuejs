@@ -79,13 +79,13 @@ export default {
       const vm = this
 
       reader.onload = e => {
-        vm.user.image_url = e.target.result
+        vm.user.image.name = e.target.result
       }
       reader.readAsDataURL(file)
     },
 
     removeImage: function() {
-      this.user.image_url = ''
+      this.user.image = {}
     },
 
     createFreshUser() {
