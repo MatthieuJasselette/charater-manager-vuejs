@@ -53,6 +53,20 @@
       </div>
       <input type="submit" class="button badge -fill-gradient" value="Submit" />
     </form>
+    <div class="container">
+      <div class="large-12 medium-12 small-12 cell">
+        <label>
+          File
+          <input
+            type="file"
+            id="file"
+            ref="file"
+            v-on:change="handleFileUpload()"
+          />
+        </label>
+        <button v-on:click="submitFile()">Submit</button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,28 +80,25 @@ export default {
   },
   data() {
     return {
-      user: this.userToEdit ? this.userToEdit : this.createFreshUser()
+      user: this.userToEdit ? this.userToEdit : this.createFreshUser(),
+      isImgChanged: false,
+      file: ''
     }
   },
   methods: {
-    onImageChange(e) {
-      const images = e.target.files || e.dataTransfer.files
-      if (!images.length) return
-      this.createImage(images[0])
+    submitFile() {
+      let formData = new FormData()
+      formData.append('file', this.file)
+      this.$store.dispatch('updateImage', formData)
     },
 
-    createImage(file) {
-      const reader = new FileReader()
-      const vm = this
-
-      reader.onload = e => {
-        vm.user.image.name = e.target.result
-      }
-      reader.readAsDataURL(file)
+    handleFileUpload() {
+      this.isImgChanged = true
+      this.file = this.$refs.file.files[0]
     },
 
     removeImage: function() {
-      this.user.image = { name: '' }
+      this.user.image = { name: '', id: this.user.image.id }
     },
 
     createFreshUser() {
@@ -117,20 +128,22 @@ export default {
     },
 
     updateUser() {
-      let formData = new FormData()
-      formData.append('file', this.user.image)
       this.$store
         .dispatch('updateUser', this.user)
         .then(() => {
           this.$router.push({
-            name: 'displayuser',
-            params: { id: this.user.id }
+            name: 'users'
+            // name: 'displayuser',
+            // params: { id: this.user.id }
           })
           this.user = this.createFreshUser()
         })
         .catch(error => {
           console.log(error)
         })
+      if (this.isImgChanged) {
+        this.updateImage()
+      }
     }
   }
 }
