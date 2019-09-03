@@ -12,11 +12,7 @@
       </div>
       <div v-show="!userToEdit" class="field">
         <label>Password</label>
-        <input
-          v-model="user.password"
-          type="password"
-          placeholder="Add a password"
-        />
+        <input v-model="user.password" type="password" placeholder="Add a password" />
       </div>
       <div v-if="userToEdit" class="field">
         <div v-if="user.image.name">
@@ -39,8 +35,8 @@
               v-on:change="handleFileUpload()"
             />
           </label>
-          <button type="button" v-on:click="submitFile()">Submit</button>
         </div>
+        <button type="button" v-on:click="submitFile()">Submit</button>
       </div>
       <div class="field">
         <label>Is_available</label>
@@ -54,8 +50,7 @@
             v-for="character of user.characters"
             :key="character.id"
             :value="character.id"
-            >{{ character.name }}</option
-          >
+          >{{ character.name }}</option>
         </select>
       </div>
       <input type="submit" class="button badge -fill-gradient" value="Submit" />
@@ -81,9 +76,19 @@ export default {
   methods: {
     handleFileUpload() {
       this.isImgChanged = true
-      this.file = this.$refs.file.files[0]
+      const file = this.$refs.file.files[0]
+      this.createPreview(file)
+      this.file = file
     },
 
+    createPreview(file) {
+      const reader = new FileReader()
+      const vm = this
+      reader.onload = e => {
+        vm.user.image.name = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
     removeImage: function() {
       this.previousImgId = this.user.image.id
       this.user.image = { name: '', id: this.user.image.id }
