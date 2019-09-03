@@ -2,6 +2,7 @@
   <div class="about">
     <h3>{{ user.name }}</h3>
     <img
+      v-if="user.image"
       :src="'http://localhost:8000/thumbs/' + user.image.name"
       :alt="user.name"
     />
