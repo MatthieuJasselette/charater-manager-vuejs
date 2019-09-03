@@ -105,18 +105,15 @@ export const actions = {
         // commit a fetchUser to refresh the img
       })
       .catch(error => {
-        console.log('FAILURE!!', error)
+        const notification = {
+          type: 'error',
+          message: 'There was a problem updating the profile: ' + error.message
+        }
+        console.log(notification)
+        dispatch('notification/add', notification, {
+          root: true
+        })
       })
-    // .catch(error => {
-    //   const notification = {
-    //     type: 'error',
-    //     message: 'There was a problem updating the profile: ' + error.message
-    //   }
-    //   console.log(notification)
-    //   dispatch('notification/add', notification, {
-    //     root: true
-    //   })
-    // })
   },
 
   registerUser({ commit, dispatch }, user) {
