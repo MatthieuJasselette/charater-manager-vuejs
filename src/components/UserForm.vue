@@ -32,7 +32,7 @@
         <div v-else>
           <!-- <div v-if="!user.image.name"> -->
           <label>Select an image</label>
-          <input type="file" @change="onFileChange" accept="image/*" />
+          <input type="file" @change="onImageChange" accept="image/*" />
         </div>
       </div>
       <div class="field">
@@ -70,10 +70,10 @@ export default {
     }
   },
   methods: {
-    onFileChange(e) {
-      var files = e.target.files || e.dataTransfer.files
-      if (!files.length) return
-      this.createImage(files[0])
+    onImageChange(e) {
+      const images = e.target.files || e.dataTransfer.files
+      if (!images.length) return
+      this.createImage(images[0])
     },
 
     createImage(file) {
@@ -117,6 +117,8 @@ export default {
     },
 
     updateUser() {
+      let formData = new FormData()
+      formData.append('file', this.user.image)
       this.$store
         .dispatch('updateUser', this.user)
         .then(() => {
