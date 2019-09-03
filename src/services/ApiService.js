@@ -68,5 +68,18 @@ export default {
 
   deleteCharacter(id) {
     return apiClient.delete('/character/' + id)
+  },
+
+  // Image routes
+  createImage(formData) {
+    return apiClient.post('/image', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+
+  deleteImage(id) {
+    return apiClient.delete('/image/' + id)
   }
 }
