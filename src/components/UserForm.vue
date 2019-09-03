@@ -20,7 +20,6 @@
       </div>
       <div v-if="userToEdit" class="field">
         <div v-if="user.image.name">
-          <!-- <div v-else> -->
           <img :src="user.image.name" />
           <input
             type="button"
@@ -30,9 +29,17 @@
           />
         </div>
         <div v-else>
-          <!-- <div v-if="!user.image.name"> -->
-          <label>Select an image</label>
-          <input type="file" @change="onImageChange" accept="image/*" />
+          <label>
+            Select a picture
+            <input
+              type="file"
+              accept="image/*"
+              id="file"
+              ref="file"
+              v-on:change="handleFileUpload()"
+            />
+          </label>
+          <button type="button" v-on:click="submitFile()">Submit</button>
         </div>
       </div>
       <div class="field">
@@ -53,20 +60,6 @@
       </div>
       <input type="submit" class="button badge -fill-gradient" value="Submit" />
     </form>
-    <div class="container">
-      <div class="large-12 medium-12 small-12 cell">
-        <label>
-          File
-          <input
-            type="file"
-            id="file"
-            ref="file"
-            v-on:change="handleFileUpload()"
-          />
-        </label>
-        <button v-on:click="submitFile()">Submit</button>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -86,18 +79,13 @@ export default {
     }
   },
   methods: {
-    submitFile() {
-      let formData = new FormData()
-      formData.append('file', this.file)
-      this.$store.dispatch('updateImage', formData)
-    },
-
     handleFileUpload() {
       this.isImgChanged = true
       this.file = this.$refs.file.files[0]
     },
 
     removeImage: function() {
+      this.previousImgId = this.user.image.id
       this.user.image = { name: '', id: this.user.image.id }
     },
 
@@ -107,10 +95,7 @@ export default {
         email: '',
         password: '',
         is_available: false,
-        main_char_id: '',
-        image: {
-          name: ''
-        }
+        main_char_id: ''
       }
     },
 
@@ -142,8 +127,15 @@ export default {
           console.log(error)
         })
       if (this.isImgChanged) {
-        this.updateImage()
+        this.submitFile()
       }
+    },
+
+    submitFile() {
+      // send id of img to replace
+      let formData = new FormData()
+      formData.append('file', this.file)
+      this.$store.dispatch('updateImage', formData)
     }
   }
 }
