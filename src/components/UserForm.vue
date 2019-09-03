@@ -18,18 +18,21 @@
           placeholder="Add a password"
         />
       </div>
-      <!-- <div class="field">
-        <div v-if="!user.image_url">
+      <div class="field">
+        <div v-if="!user.image.name">
           <label>Select an image</label>
           <input type="file" @change="onFileChange" accept="image/*" />
         </div>
         <div v-else>
-          <img :src="user.image_url" />
-          <Button class="button badge -fill-gradient" @click="removeImage"
-            >Remove image</Button
-          >
+          <img :src="'http://localhost:8000/thumbs/' + user.image.name" />
+          <input
+            type="button"
+            class="button badge -fill-gradient"
+            @click="removeImage"
+            value="Remove image"
+          />
         </div>
-      </div>-->
+      </div>
       <div class="field">
         <label>Is_available</label>
         <input v-model="user.is_available" type="checkbox" />
@@ -65,25 +68,25 @@ export default {
     }
   },
   methods: {
-    // onFileChange(e) {
-    //   var files = e.target.files || e.dataTransfer.files
-    //   if (!files.length) return
-    //   this.createImage(files[0])
-    // },
+    onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files
+      if (!files.length) return
+      this.createImage(files[0])
+    },
 
-    // createImage(file) {
-    //   const reader = new FileReader()
-    //   const vm = this
+    createImage(file) {
+      const reader = new FileReader()
+      const vm = this
 
-    //   reader.onload = e => {
-    //     vm.user.image_url = e.target.result
-    //   }
-    //   reader.readAsDataURL(file)
-    // },
+      reader.onload = e => {
+        vm.user.image_url = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
 
-    // removeImage: function() {
-    //   this.user.image_url = ''
-    // },
+    removeImage: function() {
+      this.user.image_url = ''
+    },
 
     createFreshUser() {
       return {
@@ -91,9 +94,8 @@ export default {
         email: '',
         password: '',
         is_available: false,
-        main_char_id: ''
-        // ,
-        // image_url: ''
+        main_char_id: '',
+        image: {}
       }
     },
 
