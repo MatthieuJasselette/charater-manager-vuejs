@@ -19,18 +19,20 @@
         />
       </div>
       <div class="field">
-        <div v-if="!user.image.name">
-          <label>Select an image</label>
-          <input type="file" @change="onFileChange" accept="image/*" />
-        </div>
-        <div v-else>
-          <img :src="'http://localhost:8000/thumbs/' + user.image.name" />
+        <div v-if="user.image.name">
+          <!-- <div v-else> -->
+          <img :src="user.image.name" />
           <input
             type="button"
             class="button badge -fill-gradient"
             @click="removeImage"
             value="Remove image"
           />
+        </div>
+        <div v-else>
+          <!-- <div v-if="!user.image.name"> -->
+          <label>Select an image</label>
+          <input type="file" @change="onFileChange" accept="image/*" />
         </div>
       </div>
       <div class="field">
@@ -85,7 +87,7 @@ export default {
     },
 
     removeImage: function() {
-      this.user.image = {}
+      this.user.image = { name: '' }
     },
 
     createFreshUser() {
@@ -95,7 +97,9 @@ export default {
         password: '',
         is_available: false,
         main_char_id: '',
-        image: {}
+        image: {
+          name: ''
+        }
       }
     },
 
