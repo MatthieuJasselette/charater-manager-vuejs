@@ -79,6 +79,14 @@ export default {
     })
   },
 
+  updateImage(formData, id) {
+    return apiClient.put('/image/' + id, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+
   deleteImage(id) {
     return apiClient.delete('/image/' + id)
   }

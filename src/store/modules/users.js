@@ -98,8 +98,11 @@ export const actions = {
   },
 
   updateImage({ dispatch }, { image, id }) {
-    ApiService.deleteImage(id)
-    ApiService.createImage(image)
+    // ApiService.deleteImage(id)
+    // ApiService.createImage(image)
+    // works but returns a 500 error
+    ApiService.updateImage(image, id)
+      // fails ; returns 422
       .then(response => {
         console.log('SUCCESS!!', response)
         // commit a fetchUser to refresh the img
