@@ -85,7 +85,16 @@ export const actions = {
 
   updateUser({ commit, dispatch }, user) {
     ApiService.updateUser(user.id, user)
-      .then(response => commit('UPDATE_USER', response.data.data))
+      .then(response => {
+        commit('UPDATE_USER', response.data.data)
+        const notification = {
+          type: 'success',
+          message: 'Your user profile has been updated!'
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
       .catch(error => {
         const notification = {
           type: 'error',
@@ -102,10 +111,14 @@ export const actions = {
     // ApiService.createImage(image)
     // works but returns a 500 error
     ApiService.updateImage(image, id)
-      // fails ; returns 422
-      .then(response => {
-        console.log('SUCCESS!!', response)
-        // commit a fetchUser to refresh the img
+      .then(() => {
+        const notification = {
+          type: 'success',
+          message: 'Your user profile has been updated!'
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
       })
       .catch(error => {
         const notification = {
