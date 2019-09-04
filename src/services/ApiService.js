@@ -82,9 +82,7 @@ export default {
 
   updateImage(formData, id) {
     formData.append('_method', 'PUT')
-    console.log('payload', formData)
     return apiClient.post('/image/' + id, formData, {
-      // method: 'PUT',
       headers: {
         'Content-Type': 'multipart/form-data'
       }
