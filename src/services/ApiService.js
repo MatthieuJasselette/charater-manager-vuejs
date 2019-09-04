@@ -72,6 +72,7 @@ export default {
 
   // Image routes
   createImage(formData) {
+    console.log('payload', formData)
     return apiClient.post('/image', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -80,7 +81,10 @@ export default {
   },
 
   updateImage(formData, id) {
-    return apiClient.put('/image/' + id, formData, {
+    formData.append('_method', 'PUT')
+    console.log('payload', formData)
+    return apiClient.post('/image/' + id, formData, {
+      // method: 'PUT',
       headers: {
         'Content-Type': 'multipart/form-data'
       }
