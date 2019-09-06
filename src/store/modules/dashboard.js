@@ -8,20 +8,20 @@ export const state = {
 
 export const getters = {}
 export const mutations = {
-  SET_USERS(state, users) {
+  SET_D_USERS(state, users) {
     state.users = users
   },
-  SET_CHARACTERS(state, characters) {
+  SET_D_CHARACTERS(state, characters) {
     state.characters = characters
   },
-  SET_SNAPSHOTS(state, snapshots) {
+  SET_D_SNAPSHOTS(state, snapshots) {
     state.snapshots = snapshots
   }
 }
 export const actions = {
   fetchDashboardUsers({ commit, dispatch }) {
     ApiService.getDashboardUsers()
-      .then(response => commit('SET_USERS', response.data.data))
+      .then(response => commit('SET_D_USERS', response.data.data))
       .catch(error => {
         const notification = {
           type: 'error',
@@ -35,7 +35,7 @@ export const actions = {
 
   fetchDashboardCharacters({ commit, dispatch }) {
     ApiService.getDashboardCharacters()
-      .then(response => commit('SET_CHARACTERS', response.data.data))
+      .then(response => commit('SET_D_CHARACTERS', response.data.data))
       .catch(error => {
         const notification = {
           type: 'error',
@@ -49,7 +49,7 @@ export const actions = {
 
   fetchDashboardSnapshots({ commit, dispatch }) {
     ApiService.getDashboardSnapshots()
-      .then(response => commit('SET_SNAPSHOTS', response.data.data))
+      .then(response => commit('SET_D_SNAPSHOTS', response.data.data))
       .catch(error => {
         const notification = {
           type: 'error',
