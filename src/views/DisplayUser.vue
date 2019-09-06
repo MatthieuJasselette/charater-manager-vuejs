@@ -5,7 +5,7 @@
     <p v-if="user.is_available">This user is available</p>
     <p v-else>This user is currently unavailable</p>
     <router-link
-      v-if="isLoggedIn && sessionId === user.id"
+      v-if="(isLoggedIn && session.id === user.id) || session.role === 'admims'"
       :to="{ name: 'edituser', params: { id: user.id } }"
       >User edition</router-link
     >
@@ -40,7 +40,7 @@ export default {
     },
     ...mapState({
       user: state => state.users.user,
-      sessionId: state => state.users.session.id
+      session: state => state.users.session
     })
   }
 }
