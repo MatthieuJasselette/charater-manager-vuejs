@@ -9,6 +9,7 @@ import DisplayUser from '@/views/DisplayUser.vue'
 import CreateCharacter from '@/views/CreateCharacter.vue'
 import EditCharacter from '@/views/EditCharacter.vue'
 import EditUser from '@/views/EditUser.vue'
+import Dashboard from '@/views/Dashboard.vue'
 
 Vue.use(Router)
 
@@ -80,6 +81,23 @@ const router = new Router({
       meta: {
         requiresAuth: true,
         restricted: true
+      }
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard,
+      meta: {
+        requiresAuth: true,
+        restricted: true
+      },
+      beforeEnter(to, from, next) {
+        const session = JSON.parse(localStorage.getItem('session'))
+
+        if (session.role !== 'admims') {
+          next('/')
+        }
+        next()
       }
     }
   ]
