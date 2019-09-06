@@ -41,6 +41,10 @@ export default {
     return apiClient.put('/user/' + id, user)
   },
 
+  deleteUser(id) {
+    return apiClient.delete('/user/' + id)
+  },
+
   registerUser(user) {
     return apiClient.post('/register', user)
   },

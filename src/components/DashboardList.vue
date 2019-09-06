@@ -23,7 +23,7 @@
               }"
               >See User</router-link
             >
-            <span class="button badge -fill-gradient" @click="deleteCharacter"
+            <span class="button badge -fill-gradient" @click="deleteUser(user)"
               >Delete</span
             >
           </li>
@@ -32,16 +32,48 @@
 
       <div v-show="selectedTab === 'Characters'">
         <ul>
-          <li v-for="(character, index) of characters" :key="index">
+          <li
+            class="d-flex"
+            v-for="(character, index) of characters"
+            :key="index"
+          >
             <h4>{{ character.name }}</h4>
+            <router-link
+              class="button badge -fill-gradient"
+              :to="{
+                name: 'displaycharacter',
+                params: {
+                  id: character.id
+                }
+              }"
+              >See User</router-link
+            >
+            <span
+              class="button badge -fill-gradient"
+              @click="deleteCharacter(character)"
+              >Delete</span
+            >
           </li>
         </ul>
       </div>
 
-      <div v-show="selectedTab === 'Snapshots'">
+      <div class="d-flex" v-show="selectedTab === 'Snapshots'">
         <ul>
           <li v-for="(snapshot, index) of snapshots" :key="index">
             <h4>{{ snapshot.date }}</h4>
+            <router-link
+              class="button badge -fill-gradient"
+              :to="{
+                name: 'displaysnapshot',
+                params: {
+                  id: snapshot.id
+                }
+              }"
+              >See User</router-link
+            >
+            <span class="button badge -fill-gradient" @click="deleteCharacter"
+              >Delete</span
+            >
           </li>
         </ul>
       </div>
@@ -69,7 +101,16 @@ export default {
     }
   },
   methods: {
-    deleteCharacter() {}
+    deleteUser(user) {
+      this.$store
+        .dispatch('deleteUser', user)
+        .then(this.$store.dispatch('fetchDashboardUsers'))
+    },
+    deleteCharacter(character) {
+      this.$store
+        .dispatch('deleteCharacter', character)
+        .then(this.$store.dispatch('fetchDashboardCharacters'))
+    }
   }
 }
 </script>
