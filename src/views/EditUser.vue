@@ -30,7 +30,8 @@ export default {
       next(vm => {
         if (
           vm.$options.propsData.id !==
-          vm.$store._modules.root.state.users.session.id
+            vm.$store._modules.root.state.users.session.id &&
+          vm.$store._modules.root.state.users.session.role !== 'admims'
         ) {
           vm.$router.push({ name: 'home' })
         }
