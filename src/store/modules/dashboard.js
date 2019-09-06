@@ -3,10 +3,17 @@ import ApiService from '@/services/ApiService.js'
 export const state = {
   users: [],
   characters: [],
-  snapshots: []
+  snapshots: {
+    snapshot: []
+  }
 }
 
-export const getters = {}
+export const getters = {
+  getSnapshotById: state => id => {
+    return state.snapshots.find(snapshot => snapshot.id === id)
+  }
+}
+
 export const mutations = {
   SET_D_USERS(state, users) {
     state.users = users
@@ -16,6 +23,10 @@ export const mutations = {
   },
   SET_D_SNAPSHOTS(state, snapshots) {
     state.snapshots = snapshots
+  },
+
+  ADD_SNAPSHOT(state, snapshot) {
+    state.snapshots.snapshot.push(snapshot)
   }
 }
 export const actions = {
