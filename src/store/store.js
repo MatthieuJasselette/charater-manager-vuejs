@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import ApiService from '@/services/ApiService.js'
 import * as users from '@/store/modules/users.js'
 import * as characters from '@/store/modules/characters.js'
+import * as dashboard from '@/store/modules/dashboard.js'
 import * as notification from '@/store/modules/notifications.js'
 
 Vue.use(Vuex)
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   modules: {
     users,
     characters,
+    dashboard,
     notification
   },
   state: {
