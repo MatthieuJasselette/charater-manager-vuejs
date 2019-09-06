@@ -5,6 +5,7 @@ export const state = {
   user: {},
   session: {
     token: '',
+    role: '',
     id: ''
   }
 }
@@ -44,6 +45,7 @@ export const mutations = {
     apiClient.defaults.headers.common.Authorization = null
     state.session = {
       token: '',
+      role: '',
       id: ''
     }
   }
@@ -138,6 +140,7 @@ export const actions = {
         commit('ADD_USER', user)
         commit('SET_SESSION', {
           token: `Bearer ${response.data.access_token}`,
+          role: response.data.role,
           id: response.data.id
         })
         const notification = {
@@ -166,6 +169,7 @@ export const actions = {
         dispatch('fetchUser', response.data.id)
         commit('SET_SESSION', {
           token: `Bearer ${response.data.access_token}`,
+          role: response.data.role,
           id: response.data.id
         })
       })
