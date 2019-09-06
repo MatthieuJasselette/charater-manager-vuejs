@@ -71,14 +71,14 @@ export default {
   },
 
   // Image routes
-  createImage(formData) {
-    console.log('payload', formData)
-    return apiClient.post('/image', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-  },
+  // createImage(formData) {
+  //   console.log('payload', formData)
+  //   return apiClient.post('/image', formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   })
+  // },
 
   updateImage(formData, id) {
     formData.append('_method', 'PUT')
@@ -89,7 +89,20 @@ export default {
     })
   },
 
-  deleteImage(id) {
-    return apiClient.delete('/image/' + id)
+  // deleteImage(id) {
+  //   return apiClient.delete('/image/' + id)
+  // }
+
+  // Admin routes
+  getDashboardUsers() {
+    return apiClient.get('/dashboard-users')
+  },
+
+  getDashboardCharacters() {
+    return apiClient.get('/dashboard-characters')
+  },
+
+  getDashboardSnapshots() {
+    return apiClient.get('/dashboard-snapshots')
   }
 }
