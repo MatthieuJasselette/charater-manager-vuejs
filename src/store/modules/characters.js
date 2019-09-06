@@ -73,7 +73,7 @@ export const actions = {
         commit('ADD_CHARACTER', response.data.data)
         const notification = {
           type: 'success',
-          message: 'Your user has been created!'
+          message: 'Your character has been created!'
         }
         dispatch('notification/add', notification, {
           root: true
