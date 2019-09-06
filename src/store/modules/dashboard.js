@@ -60,7 +60,10 @@ export const actions = {
 
   fetchDashboardSnapshots({ commit, dispatch }) {
     ApiService.getDashboardSnapshots()
-      .then(response => commit('SET_D_SNAPSHOTS', response.data.data))
+      .then(
+        response => console.log(typeof response.data.data)
+        // commit('SET_D_SNAPSHOTS', response.data.data)
+      )
       .catch(error => {
         const notification = {
           type: 'error',

@@ -61,7 +61,7 @@
         <ul>
           <li v-for="(snapshot, index) of snapshots" :key="index">
             <h4>{{ snapshot.date }}</h4>
-            <router-link
+            <!-- <router-link
               class="button badge -fill-gradient"
               :to="{
                 name: 'displaysnapshot',
@@ -70,7 +70,7 @@
                 }
               }"
               >See User</router-link
-            >
+            >-->
             <span class="button badge -fill-gradient" @click="deleteCharacter"
               >Delete</span
             >
@@ -91,7 +91,7 @@ export default {
       type: Array
     },
     snapshots: {
-      type: Array
+      type: Object
     }
   },
   data() {
