@@ -108,5 +108,12 @@ export default {
 
   getDashboardSnapshots() {
     return apiClient.get('/dashboard-snapshots')
+  },
+
+  saveSnapshot(snapshot) {
+    let stringSnap = JSON.stringify(snapshot)
+
+    console.log(stringSnap)
+    return apiClient.post('/raidsnapshot', stringSnap)
   }
 }
