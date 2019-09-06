@@ -56,7 +56,7 @@ export const actions = {
       .catch(error => {
         const notification = {
           type: 'error',
-          message: 'There was a problem fetching events: ' + error.message
+          message: 'There was a problem fetching users: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true
@@ -74,7 +74,7 @@ export const actions = {
         .catch(error => {
           const notification = {
             type: 'error',
-            message: 'There was a problem fetching events: ' + error.message
+            message: 'There was a problem fetching user: ' + error.message
           }
           dispatch('notification/add', notification, {
             root: true
