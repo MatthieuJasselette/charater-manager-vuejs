@@ -5,7 +5,10 @@
     <p v-if="user.is_available">This user is available</p>
     <p v-else>This user is currently unavailable</p>
     <router-link
-      v-if="(isLoggedIn && session.id === user.id) || session.role === 'admims'"
+      v-if="
+        (isLoggedIn && session.id === user.id) ||
+          (session.role === 'admims' && user.id)
+      "
       :to="{ name: 'edituser', params: { id: user.id } }"
       >User edition</router-link
     >
