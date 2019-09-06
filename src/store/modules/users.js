@@ -34,6 +34,10 @@ export const mutations = {
     state.users.push(user)
   },
 
+  REMOVE_USER(state, id) {
+    state.users.filter(user => user.id !== id)
+  },
+
   SET_SESSION(state, session) {
     localStorage.setItem('session', JSON.stringify(session))
     apiClient.defaults.headers.common.Authorization = session.token
@@ -108,10 +112,21 @@ export const actions = {
       })
   },
 
+  deleteUser({ commit, dispatch }, user) {
+    ApiService.deleteUser(user.id)
+      .then(commit('REMOVE_USER', user.id))
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem updating the profile: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
+  },
+
   updateImage({ dispatch }, { image, id }) {
-    // ApiService.deleteImage(id)
-    // ApiService.createImage(image)
-    // works but returns a 500 error
     ApiService.updateImage(image, id)
       .then(() => {
         const notification = {
