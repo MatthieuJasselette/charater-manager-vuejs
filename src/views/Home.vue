@@ -37,7 +37,7 @@ export default {
     this.$store.dispatch('fetchRaid')
   },
   computed: mapState({
-    raid: state => state.raid,
+    raid: state => state.raids.raid,
     session: state => state.users.session
   })
 }
