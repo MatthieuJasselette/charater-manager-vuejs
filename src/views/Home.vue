@@ -4,6 +4,12 @@
       This is the home page that will display the current raid composition
       through the CharacterCard component.
     </h3>
+    <span
+      v-if="session.role === 'admims'"
+      class="button badge -fill-gradient"
+      @click="saveSnapshot"
+      >Save current Roster</span
+    >
     <CharacterCard
       v-for="character of raid"
       :key="character.id"
@@ -22,9 +28,17 @@ export default {
   components: {
     CharacterCard
   },
+  methods: {
+    saveSnapshot() {
+      this.$store.dispatch('saveSnapshot')
+    }
+  },
   created() {
     this.$store.dispatch('fetchRaid')
   },
-  computed: mapState(['raid'])
+  computed: mapState({
+    raid: state => state.raid,
+    session: state => state.users.session
+  })
 }
 </script>
