@@ -60,8 +60,8 @@
       <div class="d-flex" v-show="selectedTab === 'Snapshots'">
         <ul>
           <li v-for="(snapshot, index) of snapshots" :key="index">
-            <h4>{{ snapshot.date }}</h4>
-            <!-- <router-link
+            <h4>{{ snapshot.created_at }}</h4>
+            <router-link
               class="button badge -fill-gradient"
               :to="{
                 name: 'displaysnapshot',
@@ -69,9 +69,11 @@
                   id: snapshot.id
                 }
               }"
-              >See User</router-link
-            >-->
-            <span class="button badge -fill-gradient" @click="deleteCharacter"
+              >See snapshot</router-link
+            >
+            <span
+              class="button badge -fill-gradient"
+              @click="deleteSnapshot(snapshot)"
               >Delete</span
             >
           </li>
@@ -91,7 +93,7 @@ export default {
       type: Array
     },
     snapshots: {
-      type: Object
+      type: Array
     }
   },
   data() {
@@ -110,6 +112,11 @@ export default {
       this.$store
         .dispatch('deleteCharacter', character)
         .then(this.$store.dispatch('fetchDashboardCharacters'))
+    },
+    deleteSnapshot(snapshot) {
+      this.$store
+        .dispatch('deleteSnapshot', snapshot)
+        .then(this.$store.dispatch('fetchDashboardSnapshots'))
     }
   }
 }
