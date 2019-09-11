@@ -3,9 +3,8 @@ import ApiService from '@/services/ApiService.js'
 export const state = {
   users: [],
   characters: [],
-  snapshots: {
-    snapshot: []
-  }
+  snapshots: [],
+  snapshot: {}
 }
 
 export const getters = {
@@ -32,7 +31,9 @@ export const mutations = {
 export const actions = {
   fetchDashboardUsers({ commit, dispatch }) {
     ApiService.getDashboardUsers()
-      .then(response => commit('SET_D_USERS', response.data.data))
+      .then(response => {
+        commit('SET_D_USERS', response.data.data)
+      })
       .catch(error => {
         const notification = {
           type: 'error',
@@ -60,10 +61,10 @@ export const actions = {
 
   fetchDashboardSnapshots({ commit, dispatch }) {
     ApiService.getDashboardSnapshots()
-      .then(
-        response => console.log(typeof response.data.data)
-        // commit('SET_D_SNAPSHOTS', response.data.data)
-      )
+      .then(response => {
+        commit('SET_D_SNAPSHOTS', response.data.data)
+        console.log(response.data.data)
+      })
       .catch(error => {
         const notification = {
           type: 'error',
