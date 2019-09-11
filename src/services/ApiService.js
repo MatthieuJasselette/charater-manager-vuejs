@@ -32,6 +32,7 @@ export default {
   deleteSnapshot(id) {
     return apiClient.delete('/raidsnapshot/' + id)
   },
+
   // User routes
   getUsers() {
     return apiClient.get('/user')
@@ -79,15 +80,6 @@ export default {
   },
 
   // Image routes
-  // createImage(formData) {
-  //   console.log('payload', formData)
-  //   return apiClient.post('/image', formData, {
-  //     headers: {
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  //   })
-  // },
-
   updateImage(formData, id) {
     formData.append('_method', 'PUT')
     return apiClient.post('/image/' + id, formData, {
@@ -96,6 +88,15 @@ export default {
       }
     })
   },
+
+  // createImage(formData) {
+  //   console.log('payload', formData)
+  //   return apiClient.post('/image', formData, {
+  //     headers: {
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   })
+  // },
 
   // deleteImage(id) {
   //   return apiClient.delete('/image/' + id)
@@ -116,8 +117,6 @@ export default {
 
   saveSnapshot(snapshot) {
     let stringSnap = JSON.stringify(snapshot)
-
-    console.log(stringSnap)
     return apiClient.post('/raidsnapshot', stringSnap)
   }
 }
