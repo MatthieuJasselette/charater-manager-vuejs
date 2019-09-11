@@ -5,10 +5,7 @@
     <p v-if="user.is_available">This user is available</p>
     <p v-else>This user is currently unavailable</p>
     <router-link
-      v-if="
-        (isLoggedIn && session.id === user.id) ||
-          (session.role === 'admims' && user.id)
-      "
+      v-if="hasEditionRights"
       :to="{ name: 'edituser', params: { id: user.id } }"
       >User edition</router-link
     >
@@ -37,9 +34,19 @@ export default {
   created() {
     this.$store.dispatch('fetchUser', this.id)
   },
+
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
+    },
+    hasEditionRights() {
+      if (
+        this.isLoggedIn &&
+        (this.session.id === this.user.id || this.session.role === 'admims')
+      ) {
+        return true
+      }
+      return false
     },
     ...mapState({
       user: state => state.users.user,
