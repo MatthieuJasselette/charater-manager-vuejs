@@ -14,6 +14,10 @@ export const mutations = {
 
   SET_SNAPSHOT(state, snapshot) {
     state.snapshot = snapshot
+  },
+
+  REMOVE_SNAPSHOT(state, id) {
+    state.snapshots.filter(snapshot => snapshot.id !== id)
   }
 }
 
@@ -64,11 +68,34 @@ export const actions = {
       })
     })
     ApiService.saveSnapshot(snapshot)
-      .then(response => commit('ADD_SNAPSHOT', response.data))
+      .then(response => {
+        commit('ADD_SNAPSHOT', response.data)
+        const notification = {
+          type: 'success',
+          message: 'The current roster composition has been stored!'
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
       .catch(error => {
         const notification = {
           type: 'error',
           message: 'There was a problem saving the snapshot: ' + error.message
+        }
+        dispatch('notification/add', notification, {
+          root: true
+        })
+      })
+  },
+
+  deleteSnapshot({ commit, dispatch }, snapshot) {
+    ApiService.deleteSnapshot(snapshot.id)
+      .then(commit('REMOVE_CHARACTER', snapshot.id))
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'There was a problem updating the profile: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true

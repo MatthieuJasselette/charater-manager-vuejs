@@ -24,10 +24,14 @@ apiClient.interceptors.response.use(
 )
 
 export default {
+  // raid route
   getRaid() {
     return apiClient.get('/raid')
   },
 
+  deleteSnapshot(id) {
+    return apiClient.delete('/raidsnapshot/' + id)
+  },
   // User routes
   getUsers() {
     return apiClient.get('/user')
