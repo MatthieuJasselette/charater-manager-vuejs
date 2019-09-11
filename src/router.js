@@ -9,6 +9,7 @@ import DisplayUser from '@/views/DisplayUser.vue'
 import CreateCharacter from '@/views/CreateCharacter.vue'
 import EditCharacter from '@/views/EditCharacter.vue'
 import EditUser from '@/views/EditUser.vue'
+import DisplaySnapshot from '@/views/DisplaySnapshot.vue'
 import Dashboard from '@/views/Dashboard.vue'
 
 Vue.use(Router)
@@ -47,6 +48,12 @@ const router = new Router({
       path: '/user/:id',
       name: 'displayuser',
       component: DisplayUser,
+      props: true
+    },
+    {
+      path: '/snapshot/:id',
+      name: 'displaysnapshot',
+      component: DisplaySnapshot,
       props: true
     },
     {
