@@ -57,9 +57,13 @@
         </ul>
       </div>
 
-      <div class="d-flex" v-show="selectedTab === 'Snapshots'">
+      <div v-show="selectedTab === 'Snapshots'">
         <ul>
-          <li v-for="(snapshot, index) of snapshots" :key="index">
+          <li
+            class="d-flex"
+            v-for="(snapshot, index) of snapshots"
+            :key="index"
+          >
             <h4>{{ snapshot.date }}</h4>
             <router-link
               class="button badge -fill-gradient"
