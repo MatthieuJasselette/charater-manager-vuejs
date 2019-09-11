@@ -98,7 +98,8 @@ export const actions = {
       .catch(error => {
         const notification = {
           type: 'error',
-          message: 'There was a problem updating the profile: ' + error.message
+          message:
+            'There was a problem updating the character: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true
@@ -112,7 +113,8 @@ export const actions = {
       .catch(error => {
         const notification = {
           type: 'error',
-          message: 'There was a problem updating the profile: ' + error.message
+          message:
+            'There was a problem removing the character: ' + error.message
         }
         dispatch('notification/add', notification, {
           root: true
