@@ -89,7 +89,7 @@ export const actions = {
 
   deleteSnapshot({ commit, dispatch }, snapshot) {
     ApiService.deleteSnapshot(snapshot.id)
-      .then(commit('REMOVE_CHARACTER', snapshot.id))
+      .then(commit('REMOVE_SNAPSHOT', snapshot.id))
       .catch(error => {
         const notification = {
           type: 'error',
