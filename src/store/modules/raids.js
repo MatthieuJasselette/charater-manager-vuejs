@@ -2,7 +2,9 @@ import ApiService from '@/services/ApiService.js'
 
 export const state = {
   raid: [],
-  snapshot: {}
+  snapshot: {
+    snapshot: []
+  }
 }
 
 export const getters = {}
@@ -17,12 +19,15 @@ export const mutations = {
   },
 
   REMOVE_SNAPSHOT(state, id) {
-    state.snapshots.filter(snapshot => snapshot.id !== id)
+    state.snapshot.filter(snapshot => snapshot.id !== id)
   }
 }
 
 export const actions = {
-  fetchRaid({ commit, dispatch }) {
+  fetchRaid({
+    commit,
+    dispatch
+  }) {
     ApiService.getRaid()
       .then(response => commit('SET_RAID', response.data.data))
       .catch(error => {
@@ -36,7 +41,11 @@ export const actions = {
       })
   },
 
-  fetchSnapshot({ commit, getters, dispatch }, id) {
+  fetchSnapshot({
+    commit,
+    getters,
+    dispatch
+  }, id) {
     let snapshot = getters.getSnapshotById(id)
     if (snapshot) {
       commit('SET_SNAPSHOT', snapshot)
@@ -46,8 +55,7 @@ export const actions = {
         .catch(error => {
           const notification = {
             type: 'error',
-            message:
-              'There was a problem fetching the snapshot: ' + error.message
+            message: 'There was a problem fetching the snapshot: ' + error.message
           }
           dispatch('notification/add', notification, {
             root: true
@@ -56,7 +64,10 @@ export const actions = {
     }
   },
 
-  saveSnapshot({ commit, dispatch }) {
+  saveSnapshot({
+    commit,
+    dispatch
+  }) {
     let snapshot = {
       snapshot: []
     }
@@ -89,7 +100,10 @@ export const actions = {
       })
   },
 
-  deleteSnapshot({ commit, dispatch }, snapshot) {
+  deleteSnapshot({
+    commit,
+    dispatch
+  }, snapshot) {
     ApiService.deleteSnapshot(snapshot.id)
       .then(commit('REMOVE_CHARACTER', snapshot.id))
       .catch(error => {
