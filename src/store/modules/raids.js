@@ -3,7 +3,7 @@ import ApiService from '@/services/ApiService.js'
 export const state = {
   raid: [],
   snapshot: {
-    snapshot: []
+    snapshot: {}
   }
 }
 
@@ -16,10 +16,6 @@ export const mutations = {
 
   SET_SNAPSHOT(state, snapshot) {
     state.snapshot = snapshot
-  },
-
-  REMOVE_SNAPSHOT(state, id) {
-    state.snapshot.filter(snapshot => snapshot.id !== id)
   }
 }
 

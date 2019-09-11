@@ -26,6 +26,10 @@ export const mutations = {
 
   ADD_SNAPSHOT(state, snapshot) {
     state.snapshots.push(snapshot)
+  },
+
+  REMOVE_SNAPSHOT(state, id) {
+    state.snapshots.filter(snapshot => snapshot.id !== id)
   }
 }
 export const actions = {
