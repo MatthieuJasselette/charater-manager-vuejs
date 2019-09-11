@@ -5,7 +5,7 @@
     :to="{ name: 'displayuser', params: { id: user.id } }"
   >
     <div class="event-card -shadow">
-      <h4 class="title">This is {{ user.name }}'s card</h4>
+      <h4 class="title">{{ user.name }}</h4>
       <p v-if="user.is_available">This user is available</p>
       <p v-else>This user is currently unavailable</p>
     </div>

@@ -6,7 +6,7 @@
       :to="{ name: 'displaycharacter', params: { id: character.id } }"
     >
       <div class="event-card -shadow">
-        <h4 class="title">This is {{ character.name }}'s card</h4>
+        <h4 class="title">{{ character.name }}</h4>
         <p>{{ character.description }}</p>
       </div>
     </router-link>

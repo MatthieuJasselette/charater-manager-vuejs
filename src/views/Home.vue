@@ -1,9 +1,6 @@
 <template>
   <div class="about">
-    <h3>
-      This is the home page that will display the current raid composition
-      through the CharacterCard component.
-    </h3>
+    <h3>Current raid composition.</h3>
     <span
       v-if="session.role === 'admims'"
       class="button badge -fill-gradient"

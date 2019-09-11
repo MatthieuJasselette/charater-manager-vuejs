@@ -1,9 +1,6 @@
 <template>
   <div class="about">
-    <h3>
-      This is the page that will list the characters through the CharacterCard
-      component
-    </h3>
+    <h3>List of the guild's characters.</h3>
     <CharacterCard
       v-for="character of characters"
       :key="character.id"

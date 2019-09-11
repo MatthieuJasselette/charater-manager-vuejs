@@ -1,8 +1,6 @@
 <template>
   <div class="about">
-    <h3>
-      This is the page that will list the Users through the UserCard component
-    </h3>
+    <h3>List of the registered guild members.</h3>
     <UserCard v-for="user of users" :key="user.id" :user="user" />
   </div>
 </template>
