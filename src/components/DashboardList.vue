@@ -21,7 +21,7 @@
                   id: user.id
                 }
               }"
-              >See User</router-link
+              >Details</router-link
             >
             <span class="button badge -fill-gradient" @click="deleteUser(user)"
               >Delete</span
@@ -46,7 +46,7 @@
                   id: character.id
                 }
               }"
-              >See User</router-link
+              >Details</router-link
             >
             <span
               class="button badge -fill-gradient"
@@ -69,7 +69,7 @@
                   id: snapshot.id
                 }
               }"
-              >See snapshot</router-link
+              >Details</router-link
             >
             <span
               class="button badge -fill-gradient"
