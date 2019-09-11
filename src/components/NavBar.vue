@@ -2,34 +2,42 @@
   <div id="nav" class="nav">
     <router-link class="brand" :to="{ name: 'home' }">Home</router-link>
     <nav>
-      <router-link :to="{ name: 'characters' }">Characters</router-link>
-      <span>|</span>
-      <router-link :to="{ name: 'users' }">Users</router-link>
-    </nav>
-    <div v-if="isLoggedIn">
-      <router-link :to="{ name: 'createcharacter' }"
-        >Character creation</router-link
+      <div>
+        <router-link :to="{ name: 'characters' }">Characters</router-link>
+        <span>|</span>
+        <router-link :to="{ name: 'users' }">Users</router-link>
+      </div>
+      <router-link v-if="session.role === 'admims'" :to="{ name: 'dashboard' }"
+        >Admin Dashboard</router-link
       >
+    </nav>
+    <div class="session-box" v-if="isLoggedIn">
+      <div class="session-links">
+        <LoggedUser :id="this.session.id" />
+        <router-link :to="{ name: 'createcharacter' }"
+          >Character creation</router-link
+        >
+      </div>
       <span @click="logOut" class="button badge -fill-gradient">Log out</span>
     </div>
     <router-link v-else :to="{ name: 'session' }">Session</router-link>
   </div>
 </template>
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
+import LoggedUser from '@/components/LoggedUser.vue'
 
 export default {
   computed: {
     isLoggedIn() {
       return this.$store.getters.isLoggedIn
-    }
-    // loggedUser() {
-    //   return this.$store.getters.getUserById(this.id) || ''
-    // },
-    // ...mapState({
-    //   id: state => state.users.session.id
-    // })
-    // doesn't work
+    },
+    ...mapState({
+      session: state => state.users.session
+    })
+  },
+  components: {
+    LoggedUser
   },
   methods: {
     logOut() {
@@ -40,6 +48,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .nav {
   display: flex;
@@ -63,5 +72,15 @@ export default {
 .nav .nav-item.router-link-exact-active {
   color: #39b982;
   border-bottom: solid 2px #39b982;
+}
+
+.session-box {
+  display: flex;
+  align-items: center;
+}
+
+.session-links {
+  display: inline-flex;
+  flex-direction: column;
 }
 </style>
