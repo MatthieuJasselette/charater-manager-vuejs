@@ -3,6 +3,7 @@ import ApiService, { apiClient } from '@/services/ApiService.js'
 export const state = {
   users: [],
   user: {},
+  loggedUser: {},
   session: {
     token: '',
     role: '',
@@ -24,6 +25,10 @@ export const mutations = {
 
   SET_USER(state, user) {
     state.user = user
+  },
+
+  SET_LOGGED_USER(state, user) {
+    state.loggedUser = user
   },
 
   UPDATE_USER(state, user) {
@@ -77,6 +82,24 @@ export const actions = {
     } else {
       ApiService.getUser(id)
         .then(response => commit('SET_USER', response.data.data))
+        .catch(error => {
+          const notification = {
+            type: 'error',
+            message: 'There was a problem fetching the user: ' + error.message
+          }
+          dispatch('notification/add', notification, {
+            root: true
+          })
+        })
+    }
+  },
+  fetchLoggedUser({ commit, getters, dispatch }, id) {
+    let user = getters.getUserById(id)
+    if (user) {
+      commit('SET_LOGGED_USER', user)
+    } else {
+      ApiService.getUser(id)
+        .then(response => commit('SET_LOGGED_USER', response.data.data))
         .catch(error => {
           const notification = {
             type: 'error',

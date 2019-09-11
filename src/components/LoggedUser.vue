@@ -20,10 +20,10 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch('fetchUser', this.id)
+    this.$store.dispatch('fetchLoggedUser', this.id)
   },
   computed: mapState({
-    user: state => state.users.user
+    user: state => state.users.loggedUser
   })
 }
 </script>
